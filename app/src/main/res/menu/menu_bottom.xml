@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--  android:icon=" 아이콘" // @drawable/... -->
+    <item android:id="@+id/bottom_tab1"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:checked="true"
+        android:icon="@drawable/menu_list_icon"
+        android:title="Post" />
+
+    <item android:id="@+id/bottom_tab2"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:icon="@drawable/menu_immunization_icon"
+        android:title="Immunization"
+        />
+
+    <item android:id="@+id/bottom_tab3"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:icon="@drawable/menu_photo_icon"
+        android:title="Photo"/>
+
+
+
+
+
+
+
+</menu>
