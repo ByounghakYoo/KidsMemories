@@ -10,6 +10,8 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 // YH comment
     // YJ comment
+    // HJ comment
+
     Button button;
     Intent intent;
 
