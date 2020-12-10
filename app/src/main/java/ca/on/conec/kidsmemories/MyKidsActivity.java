@@ -35,16 +35,6 @@ public class MyKidsActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     Fragment fragment;
 
-    // DataBase Helper Class for querying grades
-    private KidsDBHelper dbh;
-
-    // Declare UI instance variables
-    private RecyclerView mRecyclerView;
-    private List<Kids> mList = new ArrayList<>();
-    private KidsListAdapter mAdapter;
-    private ImageView mImgTop;
-    FloatingActionButton mFabAdd;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,15 +42,12 @@ public class MyKidsActivity extends AppCompatActivity {
 
         // Set UI instance variables
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        mImgTop = (ImageView)findViewById(R.id.imgMyKids);
-        mRecyclerView = (RecyclerView)findViewById(R.id.recyclerViewKids);
-        FloatingActionButton mFabAdd = findViewById(R.id.fabAdd);
 
-//        fragment = new PostFragment();
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.main_layout , fragment);
-//        transaction.commit();
-//        transaction.addToBackStack(null);
+        fragment = new PostFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_layout , fragment);
+        transaction.commit();
+        transaction.addToBackStack(null);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -91,66 +78,6 @@ public class MyKidsActivity extends AppCompatActivity {
             }
         });
 
-        final Intent intent1 = new Intent(this, AddKidActivity.class);
-        mFabAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(intent1);
-            }
-        });
-        getKids();
-        bindAdapter();
     }
 
-    /**
-     * Search corresponding to user inputs, and then Display a result (list)
-     */
-    private void getKids() {
-        // DataBase Helper Class for querying grades
-        dbh = new KidsDBHelper(this);
-        Cursor cursor;
-
-        // Get cursor for getting a list
-        cursor = dbh.getKids("");
-
-        Kids kidObj = new Kids();
-        mList.clear();
-
-        if (cursor.getCount() == 0)
-        {
-            Toast.makeText(this, "No Record", Toast.LENGTH_LONG).show();
-        }
-        else
-        {
-            if (cursor.moveToFirst())
-            {
-                // Set found grades to RecyclerView
-                do {
-                    kidObj = new Kids();
-                    kidObj.setKidId(cursor.getInt(0));
-                    kidObj.setFirstName(cursor.getString(1));
-                    kidObj.setLastName(cursor.getString(2));
-                    kidObj.setDateOfBirth(cursor.getString(3));
-                    kidObj.setGender(cursor.getString(4));
-                    kidObj.setNickName(cursor.getString(5));
-                    kidObj.setProvinceCode(cursor.getString(6));
-                    kidObj.setPhotoURI(cursor.getString(7));
-                    mList.add(kidObj);
-                } while (cursor.moveToNext());
-            }
-        }
-    }
-
-    /**
-     * This method for setting RecyclerView
-     */
-    private void bindAdapter()
-    {
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(layoutManager);
-
-        mAdapter = new KidsListAdapter(mList, this);
-        mRecyclerView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
-    }
 }

@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import ca.on.conec.kidsmemories.MainActivity;
 import ca.on.conec.kidsmemories.MyKidsActivity;
 import ca.on.conec.kidsmemories.R;
 import ca.on.conec.kidsmemories.model.Kids;
@@ -18,6 +19,7 @@ public class AddKidActivity extends AppCompatActivity {
     // DataBase Helper Class for saving grades
     private KidsDBHelper dbh;
     private Button mBtnAdd;
+    private Button mBtnCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +27,9 @@ public class AddKidActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_kid);
 
         mBtnAdd = (Button)findViewById(R.id.btnSave);
+        mBtnCancel = (Button)findViewById(R.id.btnCancel);
 
-        final Intent intent1 = new Intent(this, MyKidsActivity.class);
+        final Intent intent1 = new Intent(this, MainActivity.class);
 
         mBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +50,13 @@ public class AddKidActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Record not inserted", Toast.LENGTH_LONG).show();
                 }
 
+                startActivity(intent1);
+            }
+        });
+
+        mBtnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 startActivity(intent1);
             }
         });
