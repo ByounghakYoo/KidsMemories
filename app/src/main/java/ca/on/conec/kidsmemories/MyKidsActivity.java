@@ -14,16 +14,18 @@ import ca.on.conec.kidsmemories.fragment.AlbumFragment;
 import ca.on.conec.kidsmemories.fragment.ImmunizationFragment;
 import ca.on.conec.kidsmemories.fragment.PostFragment;
 
+
 public class MyKidsActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
-
     Fragment fragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_kids);
 
+        // Set UI instance variables
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         fragment = new PostFragment();
@@ -50,7 +52,7 @@ public class MyKidsActivity extends AppCompatActivity {
 
                 if(fragment != null) {
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.main_layout , fragment);
+                    transaction.replace(R.id.main_layout, fragment);
                     transaction.commit();
                     transaction.addToBackStack(null);
 
@@ -62,4 +64,5 @@ public class MyKidsActivity extends AppCompatActivity {
         });
 
     }
+
 }
