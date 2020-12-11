@@ -4,9 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="24px"
+    android:layout_marginBottom="24px"
     tools:context=".MainActivity">
 
-    <FrameLayout android:id="@+id/main_layout"
+    <FrameLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize">
@@ -26,10 +29,10 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imgMyKidsLogo"
+                android:id="@+id/imgLogo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:layout_height="240px"
+                tools:srcCompat="@drawable/kids_memories_logo" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewKids"

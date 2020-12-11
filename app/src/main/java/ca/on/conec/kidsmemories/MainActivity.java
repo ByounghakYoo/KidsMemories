@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,9 +45,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Set UI instance variables
-        mImgTop = (ImageView)findViewById(R.id.imgMyKidsLogo);
+        mImgTop = (ImageView)findViewById(R.id.imgLogo);
         mRecyclerView = (RecyclerView)findViewById(R.id.recyclerViewKids);
         FloatingActionButton mFabAdd = findViewById(R.id.fabAdd);
+
+        mImgTop.setImageResource(R.drawable.kids_memories_logo);
 
         mFabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
