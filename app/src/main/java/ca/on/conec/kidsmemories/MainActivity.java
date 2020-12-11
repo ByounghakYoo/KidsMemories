@@ -23,14 +23,14 @@ import java.util.List;
 
 import ca.on.conec.kidsmemories.activity.AddKidActivity;
 import ca.on.conec.kidsmemories.adapter.KidsListAdapter;
+import ca.on.conec.kidsmemories.db.KidsDAO;
 import ca.on.conec.kidsmemories.model.Kids;
-import ca.on.conec.kidsmemories.util.KidsDBHelper;
 
 public class MainActivity extends AppCompatActivity {
     final int WRITE_EXTERNAL_FILE_PERMISSION_REQUEST_CODE = 3;
 
     // DataBase Helper Class for querying grades
-    private KidsDBHelper dbh;
+    private KidsDAO dbh;
 
     // Declare UI instance variables
     private RecyclerView mRecyclerView;
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void getKids() {
         // DataBase Helper Class for querying grades
-        dbh = new KidsDBHelper(this);
+        dbh = new KidsDAO(this);
         Cursor cursor;
 
         // Get cursor for getting a list
