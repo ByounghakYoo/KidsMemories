@@ -78,6 +78,9 @@ public class ImmunizationFragment extends Fragment {
         btnSchedules = (Button) v.findViewById(R.id.btnSchedule);
         btnScheduleList = (Button) v.findViewById(R.id.btnScheduleList);
 
+        // Get kidId
+        int kidId = getArguments().getInt("KID_ID");
+
         btnCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -34,6 +34,9 @@ public class MyKidsActivity extends AppCompatActivity {
         transaction.commit();
         transaction.addToBackStack(null);
 
+        // Get KidId from previous activiry
+        final int kidId = getIntent().getIntExtra("KID_ID", 0);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -51,6 +54,12 @@ public class MyKidsActivity extends AppCompatActivity {
                 }
 
                 if(fragment != null) {
+                    // Send KidId to fragments
+                    // Use: int kidId = getArguments().getInt("KID_ID");
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("KID_ID", kidId);
+                    fragment.setArguments(bundle);
+
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.main_layout, fragment);
                     transaction.commit();
