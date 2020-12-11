@@ -38,8 +38,9 @@ import java.util.Date;
 import ca.on.conec.kidsmemories.MainActivity;
 import ca.on.conec.kidsmemories.R;
 import ca.on.conec.kidsmemories.adapter.KidsListAdapter;
+import ca.on.conec.kidsmemories.db.KidsDAO;
 import ca.on.conec.kidsmemories.model.Kids;
-import ca.on.conec.kidsmemories.util.KidsDBHelper;
+
 
 public class AddKidActivity extends AppCompatActivity {
     static final int SEND_CAM_PERMISSION_REQUEST_CODE = 1;
@@ -49,7 +50,7 @@ public class AddKidActivity extends AppCompatActivity {
     private String[] provinceList = {"AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT"};
 
     // DataBase Helper Class for saving grades
-    private KidsDBHelper dbh;
+    private KidsDAO dbh;
 
     // Declare UI instance variables
     private ImageView mImgPhoto;
@@ -166,7 +167,7 @@ public class AddKidActivity extends AppCompatActivity {
         mBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dbh = new KidsDBHelper(AddKidActivity.this);
+                dbh = new KidsDAO(AddKidActivity.this);
 
                 // Save inputted kid data
                 Kids kid = new Kids(mKidId, mEdtFirstName.getText().toString(), mEdtLastName.getText().toString(),
@@ -200,7 +201,7 @@ public class AddKidActivity extends AppCompatActivity {
         mBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dbh = new KidsDBHelper(AddKidActivity.this);
+                dbh = new KidsDAO(AddKidActivity.this);
 
                 Boolean insertStat = dbh.deleteKid(mKidId);
 
@@ -242,7 +243,7 @@ public class AddKidActivity extends AppCompatActivity {
      */
     private void getKid(int kidId) {
         // DataBase Helper Class for querying grades
-        dbh = new KidsDBHelper(this);
+        dbh = new KidsDAO(this);
         Cursor cursor;
 
         // Get cursor for getting a list

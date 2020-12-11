@@ -28,7 +28,7 @@ import ca.on.conec.kidsmemories.fragment.AlbumFragment;
 import ca.on.conec.kidsmemories.fragment.ImmunizationFragment;
 import ca.on.conec.kidsmemories.fragment.PostFragment;
 import ca.on.conec.kidsmemories.model.Kids;
-import ca.on.conec.kidsmemories.util.KidsDBHelper;
+
 
 public class MyKidsActivity extends AppCompatActivity {
 
