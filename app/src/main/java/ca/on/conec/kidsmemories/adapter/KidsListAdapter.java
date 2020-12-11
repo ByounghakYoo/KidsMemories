@@ -6,11 +6,8 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ca.on.conec.kidsmemories.R;
-import ca.on.conec.kidsmemories.model.Kids;
+import ca.on.conec.kidsmemories.entity.Kids;
 
 /**
  * List Adapter Class for RecyclerView

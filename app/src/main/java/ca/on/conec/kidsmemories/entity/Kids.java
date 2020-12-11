@@ -1,4 +1,4 @@
-package ca.on.conec.kidsmemories.model;
+package ca.on.conec.kidsmemories.entity;
 
 /**
  * Kid Model Class

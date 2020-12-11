@@ -6,7 +6,7 @@
 //import android.database.sqlite.SQLiteDatabase;
 //import android.database.sqlite.SQLiteOpenHelper;
 //
-//import ca.on.conec.kidsmemories.model.Kids;
+//import ca.on.conec.kidsmemories.entity.Kids;
 //
 ///**
 // * DataBase Helper Class for manipulating kids data

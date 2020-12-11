@@ -24,7 +24,7 @@ import java.util.List;
 import ca.on.conec.kidsmemories.activity.AddKidActivity;
 import ca.on.conec.kidsmemories.adapter.KidsListAdapter;
 import ca.on.conec.kidsmemories.db.KidsDAO;
-import ca.on.conec.kidsmemories.model.Kids;
+import ca.on.conec.kidsmemories.entity.Kids;
 
 public class MainActivity extends AppCompatActivity {
     final int WRITE_EXTERNAL_FILE_PERMISSION_REQUEST_CODE = 3;

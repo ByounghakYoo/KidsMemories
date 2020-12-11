@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.Nullable;
 
-import ca.on.conec.kidsmemories.model.Kids;
+import ca.on.conec.kidsmemories.entity.Kids;
 
 public class KidsDAO extends KidsMemoriesDBHelper{
 

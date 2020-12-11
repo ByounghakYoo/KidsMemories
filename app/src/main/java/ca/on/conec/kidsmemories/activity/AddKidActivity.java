@@ -37,9 +37,8 @@ import java.util.Date;
 
 import ca.on.conec.kidsmemories.MainActivity;
 import ca.on.conec.kidsmemories.R;
-import ca.on.conec.kidsmemories.adapter.KidsListAdapter;
 import ca.on.conec.kidsmemories.db.KidsDAO;
-import ca.on.conec.kidsmemories.model.Kids;
+import ca.on.conec.kidsmemories.entity.Kids;
 
 
 public class AddKidActivity extends AppCompatActivity {
