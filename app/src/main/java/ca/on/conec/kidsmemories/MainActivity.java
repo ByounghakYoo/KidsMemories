@@ -1,10 +1,14 @@
 package ca.on.conec.kidsmemories;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +28,7 @@ import ca.on.conec.kidsmemories.model.Kids;
 import ca.on.conec.kidsmemories.util.KidsDBHelper;
 
 public class MainActivity extends AppCompatActivity {
-// YH comment
-    // YJ comment
-    // HJ comment
-
-    Button button;
-    Intent intent;
+    final int WRITE_EXTERNAL_FILE_PERMISSION_REQUEST_CODE = 3;
 
     // DataBase Helper Class for querying grades
     private KidsDBHelper dbh;
@@ -45,29 +45,43 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mImgTop = (ImageView)findViewById(R.id.imgMyKids);
+        // Set UI instance variables
+        mImgTop = (ImageView)findViewById(R.id.imgMyKidsLogo);
         mRecyclerView = (RecyclerView)findViewById(R.id.recyclerViewKids);
         FloatingActionButton mFabAdd = findViewById(R.id.fabAdd);
-        button = findViewById(R.id.goMyKids);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                intent = new Intent(v.getContext() , MyKidsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        final Intent intent1 = new Intent(this, AddKidActivity.class);
         mFabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(intent1);
+                startActivity(new Intent(view.getContext(), AddKidActivity.class));
             }
         });
         getKids();
         bindAdapter();
+
+        // Get External Storage Permission
+        try
+        {
+            if (!checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+            {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_FILE_PERMISSION_REQUEST_CODE);
+            }
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        // Will be deleted
+        Button button = findViewById(R.id.goMyKids);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext() , MyKidsActivity.class);
+                intent.putExtra("KID_ID", 1);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -92,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         {
             if (cursor.moveToFirst())
             {
-                // Set found grades to RecyclerView
+                // Set found kids to RecyclerView
                 do {
                     kidObj = new Kids();
                     kidObj.setKidId(cursor.getInt(0));
@@ -102,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                     kidObj.setGender(cursor.getString(4));
                     kidObj.setNickName(cursor.getString(5));
                     kidObj.setProvinceCode(cursor.getString(6));
-                    kidObj.setPhotoURI(cursor.getString(7));
+                    kidObj.setPhotoPath(cursor.getString(7));
                     mList.add(kidObj);
                 } while (cursor.moveToNext());
             }
@@ -118,7 +132,32 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new KidsListAdapter(mList, this);
+
+        mAdapter.setOnItemClickListener(new KidsListAdapter.onClickListner() {
+            @Override
+            public void onItemClick(int position, View v) {
+                //Snackbar.make(v, "On item click "+position, Snackbar.LENGTH_LONG).show();
+                Intent intent = new Intent(v.getContext() , MyKidsActivity.class);
+                intent.putExtra("KID_ID", mAdapter.getKidId(position));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onItemLongClick(int position, View v) {
+                //Snackbar.make(v, "On item longclick  "+position, Snackbar.LENGTH_LONG).show();
+                Intent intent = new Intent(v.getContext() , AddKidActivity.class);
+                intent.putExtra("KID_ID", mAdapter.getKidId(position));
+                startActivity(intent);
+            }
+        });
+
+
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
+    }
+
+    private boolean checkPermission(String permission) {
+        int check = ContextCompat.checkSelfPermission(this, permission);
+        return (check == PackageManager.PERMISSION_GRANTED);
     }
 }

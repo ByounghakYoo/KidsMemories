@@ -11,14 +11,14 @@ public class Kids {
     private String gender;
     private String nickName;
     private String provinceCode;
-    private String photoURI;
+    private String photoPath;
 
     // Constructor without member variables
     public Kids() {
     }
 
     // Constructor with all member variables
-    public Kids(int kidId, String firstName, String lastName, String dateOfBirth, String gender, String nickName, String provinceCode, String photoURI) {
+    public Kids(int kidId, String firstName, String lastName, String dateOfBirth, String gender, String nickName, String provinceCode, String photoPath) {
         this.kidId = kidId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,7 +26,7 @@ public class Kids {
         this.gender = gender;
         this.nickName = nickName;
         this.provinceCode = provinceCode;
-        this.photoURI = photoURI;
+        this.photoPath = photoPath;
     }
 
     // Setters and Getters
@@ -87,11 +87,11 @@ public class Kids {
         this.provinceCode = provinceCode;
     }
 
-    public String getPhotoURI() {
-        return photoURI;
+    public String getPhotoPath() {
+        return photoPath;
     }
 
-    public void setPhotoURI(String photoURI) {
-        this.photoURI = photoURI;
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 }

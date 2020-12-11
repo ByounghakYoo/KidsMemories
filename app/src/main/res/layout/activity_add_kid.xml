@@ -11,98 +11,239 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="322dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80px">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="24px"
+            android:gravity="center">
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/txtPreview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Image" />
-
-            <EditText
-                android:id="@+id/editTextTextPersonName1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Preview" />
+                android:layout_marginRight="40px"
+                android:gravity="center|center_horizontal"
+                android:text="Preview"
+                android:textSize="20sp" />
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/imagePhoto"
+                android:layout_width="360px"
+                android:layout_height="360px"
                 tools:src="@tools:sample/avatars" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="24px"
+            android:gravity="center">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/txtPhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="First Name" />
+                android:layout_marginRight="40px"
+                android:gravity="center|center_horizontal"
+                android:text="Photo"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btnPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="80px"
+                android:layout_marginRight="80px"
+                android:text="Find" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName2"
-                android:layout_width="wrap_content"
+                android:id="@+id/edtPhotoPath"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="textPersonName" />
+
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="24px"
+            android:gravity="center">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/txtFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Last Name" />
+                android:layout_marginRight="40px"
+                android:gravity="center|center_horizontal"
+                android:text="First Name"
+                android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName3"
+                android:id="@+id/edtFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name" />
+                android:textSize="20sp" />
         </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="24px"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txtLastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40px"
+                android:gravity="center|center_horizontal"
+                android:text="Last Name"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edtLastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="20sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="24px"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txtDateOfBirth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40px"
+                android:gravity="center|center_horizontal"
+                android:text="Date Of Birth"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edtDateOfBirth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Click here"
+                android:inputType="textPersonName"
+                android:textSize="20sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="24px"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txtGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40px"
+                android:gravity="center|center_horizontal"
+                android:text="Gender"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spnGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="24px"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txtNickName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40px"
+                android:gravity="center|center_horizontal"
+                android:text="Nick Name"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edtNickName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="20sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="24px"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txtProvince"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40px"
+                android:gravity="center|center_horizontal"
+                android:text="Province"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spnProvince"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
     </TableLayout>
 
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:text="Save" />
+        android:layout_marginTop="40px"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel" />
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="24px"
+            android:layout_marginRight="48px"
+            android:text="Save" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24px"
+            android:layout_marginRight="48px"
+            android:text="Delete" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24px"
+            android:text="Cancel" />
+    </LinearLayout>
 
 
 </LinearLayout>

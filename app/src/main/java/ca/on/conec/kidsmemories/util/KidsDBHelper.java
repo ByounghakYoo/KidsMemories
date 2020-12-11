@@ -13,7 +13,7 @@ import ca.on.conec.kidsmemories.model.Kids;
  */
 public class KidsDBHelper extends SQLiteOpenHelper {
     public static final int version = 1;
-    public static final String dbName = "kidsmemories_test.db";
+    public static final String dbName = "kidsmemories_test2.db";
     public static final String TABLE_NAME = "kid";
     public static final String COL1 = "kid_id";
     public static final String COL2 = "first_name";
@@ -22,7 +22,7 @@ public class KidsDBHelper extends SQLiteOpenHelper {
     public static final String COL5 = "gender";
     public static final String COL6 = "nick_name";
     public static final String COL7 = "province_code";
-    public static final String COL8 = "photo_uri";
+    public static final String COL8 = "photo_path";
 
     // Query for creating table
     private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( " + COL1 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -66,9 +66,55 @@ public class KidsDBHelper extends SQLiteOpenHelper {
         cv.put(COL5, objKid.getGender());
         cv.put(COL6, objKid.getNickName());
         cv.put(COL7, objKid.getProvinceCode());
-        cv.put(COL8, objKid.getPhotoURI());
+        cv.put(COL8, objKid.getPhotoPath());
 
         long result = db.insert(TABLE_NAME, null, cv);
+        if (result == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    /**
+     * Update a kid by using ContentValues
+     * @Return success flag (Boolean)
+     */
+    public boolean updateKid(Kids objKid)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COL2, objKid.getFirstName());
+        cv.put(COL3, objKid.getLastName());
+        cv.put(COL4, objKid.getDateOfBirth());
+        cv.put(COL5, objKid.getGender());
+        cv.put(COL6, objKid.getNickName());
+        cv.put(COL7, objKid.getProvinceCode());
+        cv.put(COL8, objKid.getPhotoPath());
+
+        long result = db.update(TABLE_NAME, cv, "kid_id = " +  objKid.getKidId(), null);
+        if (result == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    /**
+     * Delete a kid
+     * @Return success flag (Boolean)
+     */
+    public boolean deleteKid(int kidId)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        long result = db.delete(TABLE_NAME, "kid_id = " +  kidId, null);
         if (result == -1)
         {
             return false;
