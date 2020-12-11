@@ -21,7 +21,8 @@
             android:layout_gravity="end|bottom"
             android:layout_margin="25px"
             android:clickable="true"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            app:srcCompat="@android:drawable/ic_input_add"
+            android:tint="@android:color/white"/>
 
         <LinearLayout
             android:layout_width="match_parent"
