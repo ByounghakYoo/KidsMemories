@@ -12,7 +12,7 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80px">
+        android:layout_marginTop="40px">
 
         <TableRow
             android:layout_width="match_parent"
@@ -26,13 +26,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="40px"
                 android:gravity="center|center_horizontal"
-                android:text="Preview"
+                android:text="Photo"
                 android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/imagePhoto"
-                android:layout_width="360px"
-                android:layout_height="360px"
+                android:layout_width="380px"
+                android:layout_height="380px"
                 tools:src="@tools:sample/avatars" />
         </TableRow>
 
@@ -48,7 +48,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="40px"
                 android:gravity="center|center_horizontal"
-                android:text="Photo"
                 android:textSize="20sp" />
 
             <Button
@@ -57,14 +56,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80px"
                 android:layout_marginRight="80px"
-                android:text="Find" />
+                android:text="Load Photo" />
 
             <EditText
                 android:id="@+id/edtPhotoPath"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
+                android:duplicateParentState="false"
+                android:editable="false"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:visibility="invisible" />
 
         </TableRow>
 
@@ -87,9 +89,9 @@
                 android:id="@+id/edtFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:drawable/edit_text"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:textSize="20sp" />
+                android:inputType="textPersonName" />
         </TableRow>
 
         <TableRow
@@ -111,6 +113,7 @@
                 android:id="@+id/edtLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:drawable/edit_text"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:textSize="20sp" />
@@ -136,6 +139,7 @@
                 android:id="@+id/edtDateOfBirth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:drawable/edit_text"
                 android:ems="10"
                 android:hint="Click here"
                 android:inputType="textPersonName"
@@ -161,7 +165,8 @@
             <Spinner
                 android:id="@+id/spnGender"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/edit_text" />
         </TableRow>
 
         <TableRow
@@ -183,6 +188,7 @@
                 android:id="@+id/edtNickName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:drawable/edit_text"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:textSize="20sp" />
@@ -206,7 +212,8 @@
             <Spinner
                 android:id="@+id/spnProvince"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/edit_text" />
 
         </TableRow>
 
@@ -214,14 +221,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="74dp"
         android:layout_marginTop="40px"
-        android:gravity="center"
+        android:gravity="center_horizontal|top"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnSave"
-            android:layout_width="wrap_content"
+            android:layout_width="280px"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
@@ -231,7 +238,7 @@
 
         <Button
             android:id="@+id/btnDelete"
-            android:layout_width="wrap_content"
+            android:layout_width="280px"
             android:layout_height="wrap_content"
             android:layout_marginTop="24px"
             android:layout_marginRight="48px"
@@ -239,7 +246,7 @@
 
         <Button
             android:id="@+id/btnCancel"
-            android:layout_width="wrap_content"
+            android:layout_width="280px"
             android:layout_height="wrap_content"
             android:layout_marginTop="24px"
             android:text="Cancel" />
