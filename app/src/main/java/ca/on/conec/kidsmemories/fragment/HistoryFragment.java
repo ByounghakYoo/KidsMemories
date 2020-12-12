@@ -1,5 +1,6 @@
 package ca.on.conec.kidsmemories.fragment;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 
 import ca.on.conec.kidsmemories.DatabaseHelper;
+import ca.on.conec.kidsmemories.MainActivity;
 import ca.on.conec.kidsmemories.R;
 
 /**
@@ -23,6 +25,7 @@ import ca.on.conec.kidsmemories.R;
  */
 public class HistoryFragment extends Fragment {
     DatabaseHelper dbh;
+    int mKidId;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,9 +78,11 @@ public class HistoryFragment extends Fragment {
         TextView myHistory;
         StringBuffer bfr = new StringBuffer();
 
+        mKidId = getArguments().getInt("KID_ID");
+
         myHistory = (TextView) v.findViewById(R.id.textHistory);
 
-        Cursor cursor = dbh.ViewData("", "History");
+        Cursor cursor = dbh.ViewData("", "History", mKidId);
         if(cursor.getCount() > 0){
             if(cursor.moveToFirst()){
                 do{

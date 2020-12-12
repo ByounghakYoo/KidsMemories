@@ -35,6 +35,8 @@ import java.util.stream.Collectors;
 import ca.on.conec.kidsmemories.DatabaseHelper;
 import ca.on.conec.kidsmemories.DisplayVaccinationDate;
 import ca.on.conec.kidsmemories.R;
+import ca.on.conec.kidsmemories.activity.AddKidActivity;
+import ca.on.conec.kidsmemories.db.KidsDAO;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,12 +44,16 @@ import ca.on.conec.kidsmemories.R;
  * create an instance of this fragment.
  */
 public class VaccinationScheduleFragment extends Fragment {
-    String pCode;
+    String pCode = "";
     DatabaseHelper dbh;
     MaterialCalendarView calendarView;
     DatePickerDialog dobPicker;
     EditText edtDob;
     Spinner spinProvince;
+    KidsDAO dbkid;
+    int mKidId;
+    String birthday = "";
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -94,78 +100,25 @@ public class VaccinationScheduleFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_vaccination_schedule, container, false);
-
-        String[] provinceList = {"Alberta", "British Columbia", "Manitoba", "New Brunswick",
-                "Newfoundland and Labrador", "Northwest Territories", "Nova Scotia",
-                "Nunavut", "Ontario", "Prince Edward Island", "Quebec",
-                "Saskatchewan", "Yukon"};
-
-        final String[] provinceCode = {"AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT"};
+        dbkid = new KidsDAO(getContext());
+        mKidId = getArguments().getInt("KID_ID");
+        String where = "where kid_id = " + mKidId;
+        Cursor cursor1 = dbkid.getKids(where);
+        if(cursor1.getCount() > 0) {
+            if (cursor1.moveToFirst()) {
+                birthday = cursor1.getString(3);
+                pCode = cursor1.getString(6);
+            }
+        }
 
         dbh = new DatabaseHelper(getContext());
         calendarView = (MaterialCalendarView) v.findViewById(R.id.mcalendarView);
-        spinProvince = (Spinner) v.findViewById(R.id.spinner);
-        edtDob = (EditText) v.findViewById(R.id.editTextBirthday);
 
-        // Create the instance of ArrayAdapter having the list of province
-        ArrayAdapter adpProvince = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,provinceList );
-        // set a simple layout resource file for each item of the spinner
-        adpProvince.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // attaching size adapter to spinner
-        spinProvince.setAdapter(adpProvince);
-        spinProvince.setEnabled(false);
+        if(pCode.isEmpty() || pCode.equals("null")){
+            pCode = "ON";
+        }
+        ReTrieveData(pCode, calendarView);
 
-        spinProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                pCode = provinceCode[position];
-                spinProvince.setEnabled(true);
-                ReTrieveData(pCode, calendarView);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        edtDob.setInputType(InputType.TYPE_NULL);
-        edtDob.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar cal = Calendar.getInstance();
-                int dayBirth = cal.get(Calendar.DAY_OF_MONTH);
-                int monthBirth = cal.get(Calendar.MONTH);
-                int yearBirth = cal.get(Calendar.YEAR);
-
-                dobPicker = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        String date = String.format("%02d", dayOfMonth)+"/"+String.format("%02d", (month+1))+"/"+String.format("%04d", year);
-                       // edtDob.setText(dayOfMonth+"/"+(month+1)+"/"+year);
-                        edtDob.setText(date);
-                    }
-                },yearBirth, monthBirth, dayBirth);
-                dobPicker.show();
-            }
-        });
-
-        edtDob.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                ReTrieveData(pCode, calendarView);
-            }
-        });
         return v;
     }
 
@@ -199,9 +152,6 @@ public class VaccinationScheduleFragment extends Fragment {
             month.clear();
             month = new ArrayList<>(treeSet);
 
-            //String birthday = "12102020";
-            String birthday = edtDob.getText().toString();
-
             int day_b = 0,month_b = 0,year_b = 0;
             if(birthday.isEmpty() || birthday == null){
                 Calendar cal = Calendar.getInstance();
@@ -209,9 +159,10 @@ public class VaccinationScheduleFragment extends Fragment {
                 month_b = cal.get(Calendar.MONTH);
                 year_b = cal.get(Calendar.YEAR);
             }else{
-                day_b = Integer.parseInt(birthday.substring(0,2));
-                month_b = Integer.parseInt(birthday.substring(3,5));
-                year_b = Integer.parseInt(birthday.substring(6));
+                String birth[] = birthday.toString().split("-");
+                day_b = Integer.parseInt(birth[2]);
+                month_b = Integer.parseInt(birth[1]);
+                year_b = Integer.parseInt(birth[0]);
             }
 
             Collections.sort(month);

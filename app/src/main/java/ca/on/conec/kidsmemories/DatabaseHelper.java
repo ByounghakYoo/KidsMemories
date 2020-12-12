@@ -69,7 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Add memo information to the table
-    public boolean Insert(String memoDate, String memo){
+    public boolean Insert(String memoDate, String memo, Integer kidId){
         // instance of SQL Lite Database
         SQLiteDatabase db = getWritableDatabase();
         // Getting the instance of content values
@@ -77,7 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Taking Content value instance and putting data into the columns
         cv.put(COL12, memoDate);
         cv.put(COL13, memo);
-        cv.put(COL14, 0);
+        cv.put(COL14, kidId);
 
         try{
             db.execSQL("DELETE FROM " + TABLE_NAME1 + " WHERE "+ COL12 +"='"+memoDate+"'");
@@ -96,17 +96,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Retrieve the data in the table according to the condition
-    public Cursor ViewData(String memoDate, String screen){
+    public Cursor ViewData(String memoDate, String screen, Integer kidId){
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = null;
 
         String query;
         // Retrieve all data in a table
         if(screen == "History"){
-            query = "SELECT * FROM " + TABLE_NAME1 + " ORDER BY " + COL12 + ";";
+            query = "SELECT * FROM " + TABLE_NAME1 + " where kidId = " + kidId + " ORDER BY " + COL12 + ";";
         }
         else{
-            query = "SELECT * FROM " + TABLE_NAME1 + " where memoDate = '" + memoDate + "';";
+            query = "SELECT * FROM " + TABLE_NAME1 + " where memoDate = '" + memoDate + "'" + " and kidId = " + kidId + ";";
         }
 
         cursor = db.rawQuery(query, null);
@@ -132,12 +132,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Delete the data in the table according to the condition
-    public Boolean DeleteData(String memoDate){
+    public Boolean DeleteData(String memoDate, Integer kidId){
         // instance of SQL Lite Database
         SQLiteDatabase db = getWritableDatabase();
-
         try{
-            db.execSQL("DELETE FROM " + TABLE_NAME1 + " WHERE "+ COL12 +"='"+memoDate+"'");
+            db.execSQL("DELETE FROM " + TABLE_NAME1 + " WHERE "+ COL12 +"='"+memoDate+"'" + " and kidId = " + kidId + ";");
             db.close();
             return true;
         }catch (Exception e){

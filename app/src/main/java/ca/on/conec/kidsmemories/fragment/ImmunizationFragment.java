@@ -1,5 +1,6 @@
 package ca.on.conec.kidsmemories.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import ca.on.conec.kidsmemories.MainActivity;
 import ca.on.conec.kidsmemories.R;
 
 /**
@@ -19,6 +21,8 @@ import ca.on.conec.kidsmemories.R;
  * create an instance of this fragment.
  */
 public class ImmunizationFragment extends Fragment {
+    int kidId;
+    Bundle para;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,12 +83,17 @@ public class ImmunizationFragment extends Fragment {
         btnScheduleList = (Button) v.findViewById(R.id.btnScheduleList);
 
         // Get kidId
-        int kidId = getArguments().getInt("KID_ID");
+        kidId = getArguments().getInt("KID_ID");
+        para = new Bundle();
+        para.putInt("KID_ID", kidId);
 
         btnCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new CalendarFragment());
+                CalendarFragment fragment  = new CalendarFragment();
+                fragment.setArguments(para);
+                loadFragment(fragment);
+                loadFragment(fragment);
             }
         });
 
@@ -98,21 +107,27 @@ public class ImmunizationFragment extends Fragment {
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new HistoryFragment());
+                HistoryFragment fragment  = new HistoryFragment();
+                fragment.setArguments(para);
+                loadFragment(fragment);
             }
         });
 
         btnSchedules.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new VaccinationScheduleFragment());
+                VaccinationScheduleFragment fragment  = new VaccinationScheduleFragment();
+                fragment.setArguments(para);
+                loadFragment(fragment);
             }
         });
 
         btnScheduleList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new ScheduleListFragment());
+                ScheduleListFragment fragment  = new ScheduleListFragment();
+                fragment.setArguments(para);
+                loadFragment(fragment);
             }
         });
 

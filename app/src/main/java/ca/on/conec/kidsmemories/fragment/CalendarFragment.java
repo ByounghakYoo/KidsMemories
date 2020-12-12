@@ -1,5 +1,6 @@
 package ca.on.conec.kidsmemories.fragment;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -20,7 +21,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import ca.on.conec.kidsmemories.DatabaseHelper;
+import ca.on.conec.kidsmemories.MainActivity;
 import ca.on.conec.kidsmemories.R;
+import ca.on.conec.kidsmemories.activity.AddKidActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +36,7 @@ public class CalendarFragment extends Fragment {
     String memoDate;
     DatabaseHelper dbh;
     EditText edtMemo;
+    int mKidId;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -94,12 +98,14 @@ public class CalendarFragment extends Fragment {
         btnSave = (Button) v.findViewById(R.id.btnSave);
         btnDelete = (Button) v.findViewById(R.id.btnDelete);
 
+        mKidId = getArguments().getInt("KID_ID");
+
         // Create an instance of the database handler class
         dbh = new DatabaseHelper(getContext());
         edtMemo.getText().clear();
 
         memoDate = String.format("%02d", day)+String.format("%02d", month)+String.format("%04d", year);
-        Cursor cursor = dbh.ViewData(memoDate,"Calendar");
+        Cursor cursor = dbh.ViewData(memoDate,"Calendar", mKidId);
         if(cursor.getCount() > 0) {
             edtMemo.setText(cursor.getString(2));
 
@@ -113,7 +119,7 @@ public class CalendarFragment extends Fragment {
                 month = month+1;
                 day = dayOfMonth;
                 memoDate = String.format("%02d", day)+String.format("%02d", month)+String.format("%04d", year);
-                Cursor cursor = dbh.ViewData(memoDate,"Calendar");
+                Cursor cursor = dbh.ViewData(memoDate,"Calendar",mKidId);
                 if(cursor.getCount() > 0){
                     edtMemo.setText(cursor.getString(2));
                 }
@@ -124,7 +130,7 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String memo = edtMemo.getText().toString();
-                insertState = dbh.Insert(memoDate, memo);
+                insertState = dbh.Insert(memoDate, memo,mKidId);
                 if(insertState == true){
                     Toast.makeText(getContext(), "Memo was saved",Toast.LENGTH_LONG).show();
                 }else{
@@ -136,7 +142,7 @@ public class CalendarFragment extends Fragment {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertState = dbh.DeleteData(memoDate);
+                insertState = dbh.DeleteData(memoDate, mKidId);
                 if(insertState == true){
                     edtMemo.getText().clear();
                     Toast.makeText(getContext(), "Memo was deleted",Toast.LENGTH_LONG).show();

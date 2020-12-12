@@ -24,6 +24,7 @@ import java.util.TreeSet;
 import ca.on.conec.kidsmemories.DatabaseHelper;
 import ca.on.conec.kidsmemories.DisplayVaccinationDate;
 import ca.on.conec.kidsmemories.R;
+import ca.on.conec.kidsmemories.db.KidsDAO;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +35,8 @@ public class ScheduleListFragment extends Fragment {
     DatabaseHelper dbh;
     String pCode;
     TextView scheduleList;
+    KidsDAO dbkid;
+    int mKidId;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,40 +83,25 @@ public class ScheduleListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_schedule_list, container, false);
-        String[] provinceList = {"Alberta", "British Columbia", "Manitoba", "New Brunswick",
-                "Newfoundland and Labrador", "Northwest Territories", "Nova Scotia",
-                "Nunavut", "Ontario", "Prince Edward Island", "Quebec",
-                "Saskatchewan", "Yukon"};
 
-        final String[] provinceCode = {"AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT"};
-        Spinner spinProvince;
+        dbkid = new KidsDAO(getContext());
+        mKidId = getArguments().getInt("KID_ID");
+        String where = "where kid_id = " + mKidId;
+        Cursor cursor1 = dbkid.getKids(where);
+        if(cursor1.getCount() > 0) {
+            if (cursor1.moveToFirst()) {
+                pCode = cursor1.getString(6);
+            }
+        }
 
-        // Create an instance of the database handler class
+         // Create an instance of the database handler class
         dbh = new DatabaseHelper(getContext());
 
         scheduleList = (TextView) v.findViewById(R.id.textSchedule);
-        spinProvince = (Spinner) v.findViewById(R.id.spinner);
-        // Create the instance of ArrayAdapter having the list of province
-        ArrayAdapter adpProvince = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,provinceList );
-        // set a simple layout resource file for each item of the spinner
-        adpProvince.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // attaching size adapter to spinner
-        spinProvince.setAdapter(adpProvince);
 
-        spinProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                pCode = provinceCode[position];
-                String data = RetrieveDate(pCode);
-                scheduleList.setText("");
-                scheduleList.setText(data);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        String data = RetrieveDate(pCode);
+        scheduleList.setText("");
+        scheduleList.setText(data);
 
         return v;
     }
