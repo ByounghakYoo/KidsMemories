@@ -104,10 +104,6 @@ public class KidsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             {
                 ((ViewHolder)holder).mImgKid.setImageResource(R.drawable.avatar_m);
             }
-            else
-            {
-                ((ViewHolder)holder).mImgKid.setImageResource(R.drawable.avatar_x);
-            }
         }
     }
 

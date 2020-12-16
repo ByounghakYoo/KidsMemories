@@ -45,7 +45,7 @@ public class AddKidActivity extends AppCompatActivity {
     static final int SEND_CAM_PERMISSION_REQUEST_CODE = 1;
     static final int INPUT_FILE_REQUEST_CODE = 2;
 
-    private String[] genderList = {"M", "F", "X"};
+    private String[] genderList = {"M", "F"};
     private String[] provinceList = {"AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT"};
 
     // DataBase Helper Class for saving grades
