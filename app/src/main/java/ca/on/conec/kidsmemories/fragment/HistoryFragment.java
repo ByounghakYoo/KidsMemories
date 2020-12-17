@@ -75,25 +75,24 @@ public class HistoryFragment extends Fragment {
 
         // Create an instance of the database handler class
         dbh = new DatabaseHelper(getContext());
+
         TextView myHistory;
         StringBuffer bfr = new StringBuffer();
 
-        mKidId = getArguments().getInt("KID_ID");
-
         myHistory = (TextView) v.findViewById(R.id.textHistory);
 
+        // Save the selected kidId in the initialization screen
+        mKidId = getArguments().getInt("KID_ID");
+
+        // Retrieve for memo data corresponding to kidId
         Cursor cursor = dbh.ViewData("", "History", mKidId);
         if(cursor.getCount() > 0){
             if(cursor.moveToFirst()){
                 do{
                     // Append rows to StringBuffer to show records
                     String memoDate = cursor.getString(1);
-                    String day = memoDate.substring(0,2);
-                    String month = memoDate.substring(2,4);
-                    String year = memoDate.substring(4);
-
                     String memo = cursor.getString(2);
-                    bfr.append(" • " + day + "-" + month + "-" + year + " : " + memo + "\n");
+                    bfr.append(" • " + memoDate + " : " + memo + "\n");
                 }while(cursor.moveToNext());
             }
         }

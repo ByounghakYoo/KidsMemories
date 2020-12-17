@@ -66,6 +66,8 @@ public class ListFragment extends Fragment {
         WebView webView;
 
         webView = (WebView) v.findViewById(R.id.webView);
+
+        //Load the vaccination schedule site into the Web View
         webView.loadUrl("https://www.canada.ca/en/public-health/services/provincial-territorial-immunization-information/provincial-territorial-routine-vaccination-programs-infants-children.html");
 
         return v;

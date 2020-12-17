@@ -88,6 +88,7 @@ public class CalendarFragment extends Fragment {
         Button btnSave;
         Button btnDelete;
 
+        // Creating a calendar
         Calendar currentdate = Calendar.getInstance();
         year = currentdate.get(Calendar.YEAR);
         month = currentdate.get(Calendar.MONTH) + 1;
@@ -98,19 +99,18 @@ public class CalendarFragment extends Fragment {
         btnSave = (Button) v.findViewById(R.id.btnSave);
         btnDelete = (Button) v.findViewById(R.id.btnDelete);
 
+        // Save the selected kidId in the initialization screen
         mKidId = getArguments().getInt("KID_ID");
 
         // Create an instance of the database handler class
         dbh = new DatabaseHelper(getContext());
         edtMemo.getText().clear();
 
-        memoDate = String.format("%02d", day)+String.format("%02d", month)+String.format("%04d", year);
-        Cursor cursor = dbh.ViewData(memoDate,"Calendar", mKidId);
-        if(cursor.getCount() > 0) {
-            edtMemo.setText(cursor.getString(2));
+        memoDate = String.format("%04d", year) + '-' + String.format("%02d", month) + '-' + String.format("%02d", day);
+        // Retrieve the memo data of the corresponding date for kidid
+        RetrieveMemoData(memoDate);
 
-        }
-
+        // Called upon change of the selected day
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -118,14 +118,14 @@ public class CalendarFragment extends Fragment {
                 year = year;
                 month = month+1;
                 day = dayOfMonth;
-                memoDate = String.format("%02d", day)+String.format("%02d", month)+String.format("%04d", year);
-                Cursor cursor = dbh.ViewData(memoDate,"Calendar",mKidId);
-                if(cursor.getCount() > 0){
-                    edtMemo.setText(cursor.getString(2));
-                }
+
+                memoDate = String.format("%04d", year) + '-' + String.format("%02d", month) + '-' + String.format("%02d", day);
+                // Retrieve the memo data of the corresponding date for kidid
+                RetrieveMemoData(memoDate);
             }
         });
 
+        // Perform when Save button is clicked
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,6 +139,7 @@ public class CalendarFragment extends Fragment {
             }
         });
 
+        // Perform when Delete button is clicked
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,5 +154,13 @@ public class CalendarFragment extends Fragment {
         });
 
         return v;
+    }
+
+    //Retrieve the memo data of the corresponding date for kidid
+    private void RetrieveMemoData(String memoDate) {
+        Cursor cursor = dbh.ViewData(memoDate,"Calendar", mKidId);
+        if(cursor.getCount() > 0) {
+            edtMemo.setText(cursor.getString(2));
+        }
     }
 }

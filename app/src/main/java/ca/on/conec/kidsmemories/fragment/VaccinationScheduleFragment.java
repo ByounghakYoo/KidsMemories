@@ -103,6 +103,8 @@ public class VaccinationScheduleFragment extends Fragment {
         dbkid = new KidsDAO(getContext());
         mKidId = getArguments().getInt("KID_ID");
         String where = "where kid_id = " + mKidId;
+
+        //Retrieve birthday and province code for the kidId selected in the initialization screen
         Cursor cursor1 = dbkid.getKids(where);
         if(cursor1.getCount() > 0) {
             if (cursor1.moveToFirst()) {
@@ -117,12 +119,14 @@ public class VaccinationScheduleFragment extends Fragment {
         if(pCode.isEmpty() || pCode.equals("null")){
             pCode = "ON";
         }
-        ReTrieveData(pCode, calendarView);
+        //Retrieve vaccination schedule information according to the province code
+        RetrieveData(pCode, calendarView);
 
         return v;
     }
 
-    private void ReTrieveData(String pCode, MaterialCalendarView calendarView) {
+    //Retrieve vaccination schedule information according to the province code
+    private void RetrieveData(String pCode, MaterialCalendarView calendarView) {
         Cursor cursor1 = dbh.RetrieveVaccinationData(pCode);
         List<CalendarDay> list;
         List<Integer> month;
@@ -131,7 +135,7 @@ public class VaccinationScheduleFragment extends Fragment {
             list = new ArrayList<CalendarDay>();
             if(cursor1.moveToFirst()){
                 do{
-                    // Append rows to StringBuffer to show records
+                    // Save vaccination months in the list
                     String vaccines = cursor1.getString(1);
                     int first = cursor1.getInt(2);
                     int second = cursor1.getInt(3);
@@ -169,6 +173,7 @@ public class VaccinationScheduleFragment extends Fragment {
             Calendar cal_s = Calendar.getInstance();
             Calendar cal_e = Calendar.getInstance();
 
+            // Save all dates of vaccination month in the list based on birthday
             for (Integer object: month) {
                 cal_s.set(year_b, month_b, day_b);
                 cal_e.set(year_b, month_b, day_b);
@@ -180,6 +185,7 @@ public class VaccinationScheduleFragment extends Fragment {
                     cal_s.add(cal_s.DAY_OF_MONTH,1);
                 }
             }
+            //Display vaccination schedule dates on calendar
             calendarView.addDecorator(new DisplayVaccinationDate(Color.BLUE, list));
         }
     }
