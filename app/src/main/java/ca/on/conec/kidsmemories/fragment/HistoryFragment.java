@@ -14,15 +14,15 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
-import ca.on.conec.kidsmemories.DatabaseHelper;
 import ca.on.conec.kidsmemories.MainActivity;
 import ca.on.conec.kidsmemories.R;
+import ca.on.conec.kidsmemories.db.ImmunizationDAO;
 
 /**
  * create an instance of this fragment.
  */
 public class HistoryFragment extends Fragment {
-    DatabaseHelper dbh;
+    ImmunizationDAO dbh;
     int mKidId;
 
     // Constructor
@@ -37,7 +37,7 @@ public class HistoryFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_history, container, false);
 
         // Create an instance of the database handler class
-        dbh = new DatabaseHelper(getContext());
+        dbh = new ImmunizationDAO(getContext());
 
         TextView myHistory;
         StringBuffer bfr = new StringBuffer();

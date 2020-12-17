@@ -1,7 +1,6 @@
 package ca.on.conec.kidsmemories.fragment;
 
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,28 +8,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.TreeSet;
-
-import ca.on.conec.kidsmemories.DatabaseHelper;
-import ca.on.conec.kidsmemories.DisplayVaccinationDate;
 import ca.on.conec.kidsmemories.R;
+import ca.on.conec.kidsmemories.db.ImmunizationDAO;
 import ca.on.conec.kidsmemories.db.KidsDAO;
 
 /**
  * create an instance of this fragment.
  */
 public class ScheduleListFragment extends Fragment {
-    DatabaseHelper dbh;
+    ImmunizationDAO dbh;
     String pCode;
     TextView scheduleList;
     KidsDAO dbkid;
@@ -61,7 +49,7 @@ public class ScheduleListFragment extends Fragment {
         }
 
          // Create an instance of the database handler class
-        dbh = new DatabaseHelper(getContext());
+        dbh = new ImmunizationDAO(getContext());
 
         scheduleList = (TextView) v.findViewById(R.id.textSchedule);
 

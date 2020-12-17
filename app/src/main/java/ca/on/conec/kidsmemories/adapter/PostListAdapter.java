@@ -8,6 +8,8 @@
 package ca.on.conec.kidsmemories.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +26,7 @@ import ca.on.conec.kidsmemories.entity.Post;
 
 public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private List<Post> postAdapterList;
-
+    private OnItemClickListener pListener;
 
     /**
      *
@@ -49,6 +51,19 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             title = (TextView) itemView.findViewById(R.id.post_title);
             content = (TextView) itemView.findViewById(R.id.post_content);
             writeDate = (TextView) itemView.findViewById(R.id.post_writedate);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION) {
+                        if (pListener != null) {
+                            pListener.onItemClick(v, pos);
+                        }
+                    }
+                }
+            });
+
         }
     }
 
@@ -63,10 +78,18 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Post itemAdapter = postAdapterList.get(position);
-        //((ViewHolder) holder).listImgView.setImageResource(itemAdapter.getPhotoLink());
+
+        if (itemAdapter.getPhotoLink().isEmpty()) {
+            ((ViewHolder) holder).listImgView.setImageBitmap(null);
+        } else {
+            Bitmap bitmap = BitmapFactory.decodeFile(itemAdapter.getPhotoLink());
+            ((ViewHolder) holder).listImgView.setImageBitmap(bitmap);
+        }
+
         ((ViewHolder) holder).title.setText(itemAdapter.getTitle());
         ((ViewHolder) holder).content.setText(itemAdapter.getContent());
         ((ViewHolder) holder).writeDate.setText(String.valueOf(itemAdapter.getWriteDate()));
+
     }
 
 
@@ -74,6 +97,16 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemCount() {
         return postAdapterList.size();
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(View v, int pos);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.pListener = listener;
+    }
+
+
 }
 
 

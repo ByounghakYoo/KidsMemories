@@ -1,4 +1,4 @@
-package ca.on.conec.kidsmemories;
+package ca.on.conec.kidsmemories.view;
 
 import android.content.Context;
 import android.graphics.Color;

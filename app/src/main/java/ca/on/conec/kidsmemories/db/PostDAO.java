@@ -11,10 +11,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.Html;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import ca.on.conec.kidsmemories.entity.Post;
 
@@ -61,10 +67,25 @@ public class PostDAO extends KidsMemoriesDBHelper{
         SQLiteDatabase db = kdb.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
+        String htmlContent = post.getContent();
+
+        Pattern imgPattern = Pattern.compile("(?i)< *[img][^\\>]*[src] *= *[\"\']{0,1}([^\"\'\\ >]*)");
+        Matcher captured = imgPattern.matcher(htmlContent);
+        int imgCnt = 0;
+
+        String base64Img = "";
+        while(captured.find()){
+            base64Img = captured.group(1);  // 글 내용의 이미지들 중 첫번째 이미지만 저장
+            imgCnt++;
+            if(imgCnt == 1){//글 내용 중 이미지가 1개 이상 일 경우에는 더 이상 노출되지 않도록함.
+                break;
+            }
+        }
+
         contentValues.put(POST_COL2 , post.getTitle());
         contentValues.put(POST_COL3 , post.getContent());
-        contentValues.put(POST_COL4 , post.getPhotoLink());
-        contentValues.put(POST_COL5 , post.getWriteDate());
+        contentValues.put(POST_COL4 , base64Img);
+        contentValues.put(POST_COL5 , new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         contentValues.put(POST_COL6 , post.getViewCount());
         contentValues.put(POST_COL7 , post.getKidId());
 
@@ -93,7 +114,7 @@ public class PostDAO extends KidsMemoriesDBHelper{
         try {
 
             cursor = db.rawQuery(" SELECT "  + POST_COL1 + ", " + POST_COL2 + ", " + POST_COL3 + ", "
-                                    + POST_COL4 + ", " + POST_COL5 + ", "+ POST_COL6 + ", " + POST_COL7 + " FROM "
+                                    + POST_COL4 + ", strftime('%Y-%m-%d' , " + POST_COL5 + ") as write_date, "+ POST_COL6 + ", " + POST_COL7 + " FROM "
                                     + POST_TABLE_NAME + " WHERE " + POST_COL7 + "= ?" , new String[]{String.valueOf(kidId)});
 
             if(cursor != null) {
@@ -102,9 +123,11 @@ public class PostDAO extends KidsMemoriesDBHelper{
                 if(cursor.moveToFirst()) {
                     do {
                         Post post = new Post();
+
+
                         post.setId(cursor.getInt(cursor.getColumnIndex(POST_COL1)));
                         post.setTitle(cursor.getString(cursor.getColumnIndex(POST_COL2)));
-                        post.setContent(cursor.getString(cursor.getColumnIndex(POST_COL3)));
+                        post.setContent(Html.fromHtml(cursor.getString(cursor.getColumnIndex(POST_COL3))).toString().replace('\n', (char) 32).replace((char) 160, (char) 32).replace((char) 65532, (char) 32).trim());
                         post.setPhotoLink(cursor.getString(cursor.getColumnIndex(POST_COL4)));
                         post.setWriteDate(cursor.getString(cursor.getColumnIndex(POST_COL5)));
                         post.setViewCount(cursor.getInt(cursor.getColumnIndex(POST_COL6)));
@@ -130,4 +153,115 @@ public class PostDAO extends KidsMemoriesDBHelper{
     }
 
 
+    public Post getPostView(int postId , int kidId) {
+        Post post = null;
+        SQLiteDatabase db = kdb.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+
+            cursor = db.rawQuery(" SELECT "  + POST_COL1 + ", " + POST_COL2 + ", " + POST_COL3 + ", "
+                    + POST_COL4 + ", strftime('%Y-%m-%d' , " + POST_COL5 + ") as write_date, "+ POST_COL6 + ", " + POST_COL7 + " FROM "
+                    + POST_TABLE_NAME + " WHERE " + POST_COL1 + "= ? AND " + POST_COL7 + "= ?"  , new String[]{String.valueOf(postId), String.valueOf(kidId)});
+
+
+            if(cursor != null) {
+                if(cursor.moveToFirst()) {
+
+                        post = new Post();
+
+                        post.setId(cursor.getInt(cursor.getColumnIndex(POST_COL1)));
+                        post.setTitle(cursor.getString(cursor.getColumnIndex(POST_COL2)));
+                        post.setContent(cursor.getString(cursor.getColumnIndex(POST_COL3)));
+                        post.setPhotoLink(cursor.getString(cursor.getColumnIndex(POST_COL4)));
+                        post.setWriteDate(cursor.getString(cursor.getColumnIndex(POST_COL5)));
+                        post.setViewCount(cursor.getInt(cursor.getColumnIndex(POST_COL6)));
+                        post.setKidId(cursor.getInt(cursor.getColumnIndex(POST_COL7)));
+
+                }
+
+                cursor.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            cursor.close();
+            db.close();
+        }
+
+        return post;
+    }
+
+    public boolean deletePost(Post post) {
+
+        boolean returnValue = false;
+        SQLiteDatabase db = kdb.getWritableDatabase();
+
+
+        try {
+
+            int postId = post.getId();
+
+            long result = db.delete(POST_TABLE_NAME , POST_COL1 + "= ?", new String[] {String.valueOf(postId)});
+
+            if(result == -1) {
+                returnValue = false;
+            } else {
+                returnValue = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            db.close();
+        }
+
+        return returnValue;
+    }
+
+    public boolean modifyPost(Post post) {
+
+        boolean returnValue = false;
+
+        SQLiteDatabase db = kdb.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        String htmlContent = post.getContent();
+
+        Pattern imgPattern = Pattern.compile("(?i)< *[img][^\\>]*[src] *= *[\"\']{0,1}([^\"\'\\ >]*)");
+        Matcher captured = imgPattern.matcher(htmlContent);
+        int imgCnt = 0;
+
+        String base64Img = "";
+        while(captured.find()){
+            base64Img = captured.group(1);  // 글 내용의 이미지들 중 첫번째 이미지만 저장
+            imgCnt++;
+            if(imgCnt == 1){//글 내용 중 이미지가 1개 이상 일 경우에는 더 이상 노출되지 않도록함.
+                break;
+            }
+        }
+
+
+        int postId = post.getId();
+        int kidId = post.getKidId();
+
+        contentValues.put(POST_COL2 , post.getTitle());
+        contentValues.put(POST_COL3 , post.getContent());
+        contentValues.put(POST_COL4 , base64Img);
+
+
+        long result = db.update(POST_TABLE_NAME , contentValues , POST_COL1 + "= ? and " + POST_COL7 + "= ?", new String[] {String.valueOf(postId) , String.valueOf(kidId)});
+
+        if(result == -1) {
+            returnValue = false;
+        } else {
+            returnValue = true;
+        }
+
+        return returnValue;
+
+    }
 }

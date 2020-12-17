@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.AddKidActivity"></activity>
+        <activity android:name=".activity.WritePostActivity"></activity>
         <activity android:name=".MyKidsActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>

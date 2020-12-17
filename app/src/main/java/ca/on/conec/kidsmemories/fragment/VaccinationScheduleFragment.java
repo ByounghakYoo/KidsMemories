@@ -7,35 +7,24 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
-import ca.on.conec.kidsmemories.DatabaseHelper;
-import ca.on.conec.kidsmemories.DisplayVaccinationDate;
+import ca.on.conec.kidsmemories.view.DisplayVaccinationDate;
 import ca.on.conec.kidsmemories.R;
-import ca.on.conec.kidsmemories.activity.AddKidActivity;
+import ca.on.conec.kidsmemories.db.ImmunizationDAO;
 import ca.on.conec.kidsmemories.db.KidsDAO;
 
 /**
@@ -43,7 +32,7 @@ import ca.on.conec.kidsmemories.db.KidsDAO;
  */
 public class VaccinationScheduleFragment extends Fragment {
     String pCode = "";
-    DatabaseHelper dbh;
+    ImmunizationDAO dbh;
     MaterialCalendarView calendarView;
     DatePickerDialog dobPicker;
     EditText edtDob;
@@ -75,7 +64,7 @@ public class VaccinationScheduleFragment extends Fragment {
             }
         }
 
-        dbh = new DatabaseHelper(getContext());
+        dbh = new ImmunizationDAO(getContext());
         calendarView = (MaterialCalendarView) v.findViewById(R.id.mcalendarView);
 
         if(pCode.isEmpty() || pCode.equals("null")){

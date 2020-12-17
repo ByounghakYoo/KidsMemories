@@ -7,6 +7,8 @@
 package ca.on.conec.kidsmemories.entity;
 
 
+import android.graphics.Bitmap;
+
 public class Post {
     private int id;     // Post Id AutoGenerate.
     private String title;   // Post Title
@@ -15,7 +17,7 @@ public class Post {
     private String writeDate;       // SYS DATE
     private int viewCount;          // View Count
     private int kidId;              // kid Id for foreign key
-
+    private Bitmap bitMap;          // Bitmap Image
     /**
      * Basic Constroctor
      */
@@ -174,5 +176,13 @@ public class Post {
      */
     public void setKidId(int kidId) {
         this.kidId = kidId;
+    }
+
+    public Bitmap getBitMap() {
+        return bitMap;
+    }
+
+    public void setBitMap(Bitmap bitMap) {
+        this.bitMap = bitMap;
     }
 }

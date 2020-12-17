@@ -20,6 +20,10 @@ public class KidsMemoriesDBHelper extends SQLiteOpenHelper {
         try {
             db.execSQL(KidsDAO.CREATE_KID_TABLE);
             db.execSQL(PostDAO.CREATE_POST_TABLE);
+            db.execSQL(ImmunizationDAO.VAC_CREATE_TABLE);
+            db.execSQL(ImmunizationDAO.MEMO_CREATE_TABLE);
+            db.execSQL(ImmunizationDAO.VAC_INSERT_TABLE);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -29,6 +33,8 @@ public class KidsMemoriesDBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(KidsDAO.DROP_KID_TABLE);
         db.execSQL(PostDAO.DROP_POST_TABLE);
+        db.execSQL(ImmunizationDAO.VAC_DROP_TABLE);
+        db.execSQL(ImmunizationDAO.MEMO_DROP_TABLE);
         onCreate(db);
     }
 }

@@ -20,10 +20,10 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import java.util.Calendar;
 import java.util.List;
 
-import ca.on.conec.kidsmemories.DatabaseHelper;
 import ca.on.conec.kidsmemories.MainActivity;
 import ca.on.conec.kidsmemories.R;
 import ca.on.conec.kidsmemories.activity.AddKidActivity;
+import ca.on.conec.kidsmemories.db.ImmunizationDAO;
 
 /**
  * create an instance of this fragment.
@@ -32,7 +32,7 @@ public class CalendarFragment extends Fragment {
     int year, month, day;
     Boolean insertState;
     String memoDate;
-    DatabaseHelper dbh;
+    ImmunizationDAO dbh;
     EditText edtMemo;
     int mKidId;
 
@@ -67,7 +67,7 @@ public class CalendarFragment extends Fragment {
         mKidId = getArguments().getInt("KID_ID");
 
         // Create an instance of the database handler class
-        dbh = new DatabaseHelper(getContext());
+        dbh = new ImmunizationDAO(getContext());
         edtMemo.getText().clear();
 
         memoDate = String.format("%04d", year) + '-' + String.format("%02d", month) + '-' + String.format("%02d", day);

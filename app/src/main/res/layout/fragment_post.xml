@@ -11,9 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_margin="25px"
+        android:layout_margin="12px"
         android:clickable="true"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        android:tint="@android:color/white"
+        android:focusable="true"
+        android:contentDescription="@string/add"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
 
     <include android:id="@+id/view_post"
         android:layout_width="match_parent"

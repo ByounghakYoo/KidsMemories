@@ -29,14 +29,21 @@ public class MyKidsActivity extends AppCompatActivity {
         // Set UI instance variables
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
+        // Get KidId from previous activiry
+        final int kidId = getIntent().getIntExtra("KID_ID", 0);
+
         fragment = new PostFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("KID_ID", kidId);
+        fragment.setArguments(bundle);
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_layout , fragment);
         transaction.commit();
         transaction.addToBackStack(null);
 
-        // Get KidId from previous activiry
-        final int kidId = getIntent().getIntExtra("KID_ID", 0);
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
