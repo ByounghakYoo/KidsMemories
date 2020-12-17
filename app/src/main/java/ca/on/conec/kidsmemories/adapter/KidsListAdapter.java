@@ -28,7 +28,7 @@ import ca.on.conec.kidsmemories.entity.Kids;
 public class KidsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     // List variable for manipulating data
     private List<Kids> mList;
-    private static onClickListner onClickListner;
+    private onClickListner onClickListner;
 
     /**
      * Constructor with List data input
@@ -83,14 +83,16 @@ public class KidsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * Set User defined onClickListner to this class
      * @param onClickListner interface for processing click events
      */
-    public void setOnItemClickListener(onClickListner onClickListner) {
-        KidsListAdapter.onClickListner = onClickListner;
+    public void setOnItemClickListener(onClickListner onClickListner)
+    {
+        this.onClickListner = onClickListner;
     }
 
     /**
      * Interface for click event procedures
      */
-    public interface onClickListner {
+    public interface onClickListner
+    {
         void onItemClick(int position, View v);
         void onItemLongClick(int position, View v);
     }

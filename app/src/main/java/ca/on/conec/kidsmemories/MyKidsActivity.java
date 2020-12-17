@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -42,14 +43,18 @@ public class MyKidsActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
 
-                    case R.id.bottom_tab1 :
+                    case R.id.bottom_tab_post:
                         fragment = new PostFragment();
                         break;
-                    case R.id.bottom_tab2 :
+                    case R.id.bottom_tab_immunization:
                         fragment = new ImmunizationFragment();
                         break;
-                    case R.id.bottom_tab3 :
+                    case R.id.bottom_tab_album:
                         fragment = new AlbumFragment();
+                        break;
+                    case R.id.bottom_tab_home:
+                        // Go to Main Activity
+                        startActivity(new Intent(MyKidsActivity.this , MainActivity.class));
                         break;
                 }
 

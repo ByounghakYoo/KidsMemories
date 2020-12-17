@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         mFabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), AddKidActivity.class));
+                startActivity(new Intent(MainActivity.this, AddKidActivity.class));
             }
         });
 
@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
         {
             if (!checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE))
             {
-                ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_FILE_PERMISSION_REQUEST_CODE);
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_FILE_PERMISSION_REQUEST_CODE);
             }
         }
         catch (Exception e)
@@ -89,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Search corresponding to user inputs, and then Add kids list to recycler view data
      */
-    private void getKids() {
+    private void getKids()
+    {
         // DataBase Helper Class for querying kids
         kDBHelper = new KidsDAO(this);
         Cursor cursor;
@@ -140,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position, View v) {
                 // Go to Next Activity (3 Fragments)
-                Intent intent = new Intent(v.getContext() , MyKidsActivity.class);
+                Intent intent = new Intent(MainActivity.this , MyKidsActivity.class);
                 intent.putExtra("KID_ID", mAdapter.getKidId(position));
                 startActivity(intent);
             }
@@ -148,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemLongClick(int position, View v) {
                 // Go to Activity for adding a new kid
-                Intent intent = new Intent(v.getContext() , AddKidActivity.class);
+                Intent intent = new Intent(MainActivity.this , AddKidActivity.class);
                 intent.putExtra("KID_ID", mAdapter.getKidId(position));
                 startActivity(intent);
             }
@@ -163,8 +165,30 @@ public class MainActivity extends AppCompatActivity {
      * @param permission permission for checking
      * @return granted flag
      */
-    private boolean checkPermission(String permission) {
+    private boolean checkPermission(String permission)
+    {
         int check = ContextCompat.checkSelfPermission(this, permission);
         return (check == PackageManager.PERMISSION_GRANTED);
+    }
+
+    /**
+     * OnStop State: Remove Recycler View Adpater for preventing memory leak
+     */
+    @Override
+    protected void onStop()
+    {
+        // Prevent Memory Leak
+        mRecyclerView.setAdapter(null);
+        super.onStop();
+    }
+
+    /**
+     * OnRestart State: Re-Binding Recycler View Adapter
+     */
+    @Override
+    protected void onRestart() {
+        // Re-Bind Recycler View Adapter because it is removed onStop()
+        bindAdapter();
+        super.onRestart();
     }
 }

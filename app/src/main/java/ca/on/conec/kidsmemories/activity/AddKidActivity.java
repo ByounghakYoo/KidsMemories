@@ -183,7 +183,6 @@ public class AddKidActivity extends AppCompatActivity {
         });
 
         // Save button: Save current kid data, and go back to kids list (previous activity)
-        final Intent intent = new Intent(this, MainActivity.class);
         mBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,7 +220,7 @@ public class AddKidActivity extends AppCompatActivity {
                 }
 
                 // Go to kids list menu
-                startActivity(intent);
+                startActivity(new Intent(AddKidActivity.this, MainActivity.class));
             }
         });
 
@@ -245,7 +244,7 @@ public class AddKidActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
 
-                startActivity(intent);
+                startActivity(new Intent(AddKidActivity.this, MainActivity.class));
             }
         });
 
@@ -253,7 +252,7 @@ public class AddKidActivity extends AppCompatActivity {
         mBtnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(intent);
+                startActivity(new Intent(AddKidActivity.this, MainActivity.class));
             }
         });
 
@@ -276,7 +275,8 @@ public class AddKidActivity extends AppCompatActivity {
     /**
      * Search corresponding to Kid ID, and then Display a result
      */
-    private void getKid(int kidId) {
+    private void getKid(int kidId)
+    {
         // DataBase Helper Class for querying kids data
         kDBHelper = new KidsDAO(this);
         Cursor cursor;
@@ -326,7 +326,8 @@ public class AddKidActivity extends AppCompatActivity {
      * @param permission permission for checking
      * @return granted flag
      */
-    private boolean checkPermission(String permission) {
+    private boolean checkPermission(String permission)
+    {
         int check = ContextCompat.checkSelfPermission(this, permission);
         return (check == PackageManager.PERMISSION_GRANTED);
     }
@@ -411,7 +412,8 @@ public class AddKidActivity extends AppCompatActivity {
      * @param uri URI for converting
      * @return path string
      */
-    private String getPathFromUri(Uri uri) {
+    private String getPathFromUri(Uri uri)
+    {
         // Get cursor correspondign to URI
         ContentResolver contentResolver = getApplicationContext().getContentResolver();
         Cursor cursor = contentResolver.query(uri, new String[] {MediaStore.MediaColumns.DATA},
@@ -435,7 +437,8 @@ public class AddKidActivity extends AppCompatActivity {
     /**
      * Get Photo from Camera, Gallery, Photos
      */
-    private void getKidImage() {
+    private void getKidImage()
+    {
         Intent[] intentArray;
 
         // Set Camera Intent

@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--  android:icon=" 아이콘" // @drawable/... -->
-    <item android:id="@+id/bottom_tab1"
+    <item android:id="@+id/bottom_tab_post"
         app:showAsAction="always"
         android:enabled="true"
         android:checked="true"
         android:icon="@drawable/menu_list_icon"
         android:title="Post" />
 
-    <item android:id="@+id/bottom_tab2"
+    <item android:id="@+id/bottom_tab_immunization"
         app:showAsAction="always"
         android:enabled="true"
         android:icon="@drawable/menu_immunization_icon"
         android:title="Immunization"
         />
 
-    <item android:id="@+id/bottom_tab3"
+    <item android:id="@+id/bottom_tab_album"
         app:showAsAction="always"
         android:enabled="true"
         android:icon="@drawable/menu_photo_icon"
         android:title="Photo"/>
 
-
-
-
-
-
-
+    <item
+        android:id="@+id/bottom_tab_home"
+        android:enabled="true"
+        android:icon="@drawable/home_button"
+        android:title="Photo"
+        app:showAsAction="always" />
 </menu>

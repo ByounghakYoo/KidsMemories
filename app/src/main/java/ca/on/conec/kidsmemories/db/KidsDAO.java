@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 
 import ca.on.conec.kidsmemories.entity.Kids;
 
-public class KidsDAO extends KidsMemoriesDBHelper{
+public class KidsDAO extends KidsMemoriesDBHelper {
 
     public static final String KID_TABLE_NAME = "kid";
     public static final String KID_COL1 = "kid_id";
@@ -152,5 +152,4 @@ public class KidsDAO extends KidsMemoriesDBHelper{
         }
         return cursor;
     }
-
 }

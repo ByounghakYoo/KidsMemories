@@ -24,7 +24,8 @@ public class Kids {
 
     // Constructor with all member variables
     public Kids(int kidId, String firstName, String lastName, String dateOfBirth, String gender,
-                String nickName, String provinceCode, String photoPath) {
+                String nickName, String provinceCode, String photoPath)
+    {
         this.kidId = kidId;
         this.firstName = firstName;
         this.lastName = lastName;
