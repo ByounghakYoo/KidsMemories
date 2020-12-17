@@ -87,16 +87,17 @@ public class ImmunizationFragment extends Fragment {
         para = new Bundle();
         para.putInt("KID_ID", kidId);
 
+        // Perform when calendar button is clicked
         btnCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CalendarFragment fragment  = new CalendarFragment();
                 fragment.setArguments(para);
                 loadFragment(fragment);
-                loadFragment(fragment);
             }
         });
 
+        // Perform when site button is clicked
         btnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +105,7 @@ public class ImmunizationFragment extends Fragment {
             }
         });
 
+        // Perform when my history button is clicked
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +115,7 @@ public class ImmunizationFragment extends Fragment {
             }
         });
 
+        // Perform when immunization schedules(calendar) button is clicked
         btnSchedules.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,6 +125,7 @@ public class ImmunizationFragment extends Fragment {
             }
         });
 
+        // Perform when immunization schedule(list) button is clicked
         btnScheduleList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,6 +138,7 @@ public class ImmunizationFragment extends Fragment {
         return v;
     }
 
+    //Perform the transaction
     private void loadFragment(Fragment fragment) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

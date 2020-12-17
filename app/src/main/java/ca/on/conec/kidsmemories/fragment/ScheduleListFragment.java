@@ -85,7 +85,10 @@ public class ScheduleListFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_schedule_list, container, false);
 
         dbkid = new KidsDAO(getContext());
+        // Save the selected kidId in the initialization screen
         mKidId = getArguments().getInt("KID_ID");
+
+        //Retrieve province code for the kidId selected in the initialization screen
         String where = "where kid_id = " + mKidId;
         Cursor cursor1 = dbkid.getKids(where);
         if(cursor1.getCount() > 0) {
@@ -106,6 +109,7 @@ public class ScheduleListFragment extends Fragment {
         return v;
     }
 
+    //Retrieve vaccination schedule information according to the province code
     private String RetrieveDate(String provinceCode) {
         StringBuffer bfr = new StringBuffer();
         Cursor cursor1 = dbh.RetrieveVaccinationData(provinceCode);
