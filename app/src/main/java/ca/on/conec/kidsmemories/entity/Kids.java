@@ -1,3 +1,8 @@
+/* Kids.java
+   KidsMemories: Model Model Class
+    Revision History
+        Yi Phyo Hong, 2020.12.10: Created
+*/
 package ca.on.conec.kidsmemories.entity;
 
 /**
@@ -18,7 +23,8 @@ public class Kids {
     }
 
     // Constructor with all member variables
-    public Kids(int kidId, String firstName, String lastName, String dateOfBirth, String gender, String nickName, String provinceCode, String photoPath) {
+    public Kids(int kidId, String firstName, String lastName, String dateOfBirth, String gender,
+                String nickName, String provinceCode, String photoPath) {
         this.kidId = kidId;
         this.firstName = firstName;
         this.lastName = lastName;

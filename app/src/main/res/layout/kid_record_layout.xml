@@ -5,15 +5,15 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20px"
-    android:padding="20px"
-    >
+    android:layout_margin="4dp"
+    android:padding="4dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
         tools:layout_editor_absoluteX="7dp"
         tools:layout_editor_absoluteY="7dp">
 
@@ -27,34 +27,46 @@
                 android:layout_height="160dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="0dp"
+                android:contentDescription="@string/kid_photo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/txtName"
+                android:id="@+id/txtFName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/imgKid"
-                android:layout_marginStart="11dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="20dp"
                 android:layout_toEndOf="@+id/imgKid"
-                android:text="Name"
+                android:text="@string/first_name"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@+id/imgKid"
                 app:layout_constraintTop_toTopOf="@+id/imgKid" />
 
             <TextView
+                android:id="@+id/txtLName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtFName"
+                android:layout_alignStart="@+id/txtFName"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/last_name"
+                android:textSize="20sp" />
+
+            <TextView
                 android:id="@+id/txtDateOfBitrh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/imgKid"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="71dp"
-                android:layout_toEndOf="@+id/imgKid"
-                android:text="DOB"
+                android:layout_below="@+id/txtLName"
+                android:layout_alignStart="@+id/txtLName"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/dob"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/txtName"
+                app:layout_constraintStart_toStartOf="@+id/txtFName"
                 app:layout_constraintTop_toTopOf="@+id/imgKid" />
 
         </RelativeLayout>

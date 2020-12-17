@@ -1,3 +1,9 @@
+/* MainActivity.java
+   KidsMemories: Main Activity (Kids List)
+    Revision History
+        Byounghak Yoo, 2020.12.04: Created
+        Yi Phyo Hong, 2020.12.10: Modified
+*/
 package ca.on.conec.kidsmemories;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,15 +35,17 @@ import ca.on.conec.kidsmemories.entity.Kids;
 public class MainActivity extends AppCompatActivity {
     final int WRITE_EXTERNAL_FILE_PERMISSION_REQUEST_CODE = 3;
 
-    // DataBase Helper Class for querying grades
-    private KidsDAO dbh;
+    // DataBase Helper Class for querying kids DB
+    private KidsDAO kDBHelper;
 
     // Declare UI instance variables
+    private ImageView mImgTop;
+    FloatingActionButton mFabAdd;
+
+    // Recycler View variables
     private RecyclerView mRecyclerView;
     private List<Kids> mList = new ArrayList<>();
     private KidsListAdapter mAdapter;
-    private ImageView mImgTop;
-    FloatingActionButton mFabAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +55,24 @@ public class MainActivity extends AppCompatActivity {
         // Set UI instance variables
         mImgTop = (ImageView)findViewById(R.id.imgLogo);
         mRecyclerView = (RecyclerView)findViewById(R.id.recyclerViewKids);
-        FloatingActionButton mFabAdd = findViewById(R.id.fabAdd);
+        mFabAdd = findViewById(R.id.fabAdd);
 
         mImgTop.setImageResource(R.drawable.kids_memories_logo);
 
+        // Floating Button (+): Go to Activity for adding new kid data
         mFabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), AddKidActivity.class));
             }
         });
+
+        // Get kids list
         getKids();
+        // binding an adapter for Recycler view
         bindAdapter();
 
-        // Get External Storage Permission
+        // Get External Storage Permission for saving photo file
         try
         {
             if (!checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE))
@@ -72,29 +84,18 @@ public class MainActivity extends AppCompatActivity {
         {
             Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-
-        // Will be deleted
-        Button button = findViewById(R.id.goMyKids);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext() , MyKidsActivity.class);
-                intent.putExtra("KID_ID", 1);
-                startActivity(intent);
-            }
-        });
     }
 
     /**
-     * Search corresponding to user inputs, and then Display a result (list)
+     * Search corresponding to user inputs, and then Add kids list to recycler view data
      */
     private void getKids() {
-        // DataBase Helper Class for querying grades
-        dbh = new KidsDAO(this);
+        // DataBase Helper Class for querying kids
+        kDBHelper = new KidsDAO(this);
         Cursor cursor;
 
         // Get cursor for getting a list
-        cursor = dbh.getKids("");
+        cursor = kDBHelper.getKids("");
 
         Kids kidObj = new Kids();
         mList.clear();
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method for setting RecyclerView
+     * This method for binding an adapter for RecyclerView
      */
     private void bindAdapter()
     {
@@ -134,10 +135,11 @@ public class MainActivity extends AppCompatActivity {
 
         mAdapter = new KidsListAdapter(mList, this);
 
+        // Set Click event to Recycler view
         mAdapter.setOnItemClickListener(new KidsListAdapter.onClickListner() {
             @Override
             public void onItemClick(int position, View v) {
-                //Snackbar.make(v, "On item click "+position, Snackbar.LENGTH_LONG).show();
+                // Go to Next Activity (3 Fragments)
                 Intent intent = new Intent(v.getContext() , MyKidsActivity.class);
                 intent.putExtra("KID_ID", mAdapter.getKidId(position));
                 startActivity(intent);
@@ -145,18 +147,22 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemLongClick(int position, View v) {
-                //Snackbar.make(v, "On item longclick  "+position, Snackbar.LENGTH_LONG).show();
+                // Go to Activity for adding a new kid
                 Intent intent = new Intent(v.getContext() , AddKidActivity.class);
                 intent.putExtra("KID_ID", mAdapter.getKidId(position));
                 startActivity(intent);
             }
         });
 
-
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Check Permission is granted or not
+     * @param permission permission for checking
+     * @return granted flag
+     */
     private boolean checkPermission(String permission) {
         int check = ContextCompat.checkSelfPermission(this, permission);
         return (check == PackageManager.PERMISSION_GRANTED);

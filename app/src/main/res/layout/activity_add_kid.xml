@@ -12,59 +12,64 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40px">
+        android:layout_marginTop="8dp">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="24px"
+            android:layout_marginTop="4dp"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/txtPreview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="40px"
+                android:layout_marginEnd="16dp"
                 android:gravity="center|center_horizontal"
-                android:text="Photo"
+                android:labelFor="@id/imagePhoto"
+                android:text="@string/photo"
                 android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/imagePhoto"
-                android:layout_width="380px"
-                android:layout_height="380px"
+                android:layout_width="144dp"
+                android:layout_height="144dp"
+                android:background="@android:color/background_light"
+                android:contentDescription="@string/kid_photo"
                 tools:src="@tools:sample/avatars" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="24px"
+            android:layout_marginTop="4dp"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/txtPhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="40px"
+                android:layout_marginEnd="20dp"
                 android:gravity="center|center_horizontal"
+                android:labelFor="@id/edtPhotoPath"
                 android:textSize="20sp" />
 
             <Button
                 android:id="@+id/btnPhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80px"
-                android:layout_marginRight="80px"
-                android:text="Load Photo" />
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:text="@string/load_photo"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edtPhotoPath"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:duplicateParentState="false"
-                android:editable="false"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:visibility="invisible" />
 
@@ -73,22 +78,24 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="24px"
+            android:layout_marginTop="4dp"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/txtFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="40px"
+                android:layout_marginEnd="20dp"
                 android:gravity="center|center_horizontal"
-                android:text="First Name"
+                android:labelFor="@id/edtFirstName"
+                android:text="@string/first_name"
                 android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edtFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autofillHints=""
                 android:background="@android:drawable/edit_text"
                 android:ems="10"
                 android:inputType="textPersonName" />
@@ -97,16 +104,17 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="24px"
+            android:layout_marginTop="4dp"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/txtLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="40px"
+                android:layout_marginEnd="20dp"
                 android:gravity="center|center_horizontal"
-                android:text="Last Name"
+                android:labelFor="@id/edtLastName"
+                android:text="@string/last_name"
                 android:textSize="20sp" />
 
             <EditText
@@ -115,6 +123,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/edit_text"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:textSize="20sp" />
 
@@ -123,16 +132,17 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="24px"
+            android:layout_marginTop="4dp"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/txtDateOfBirth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="40px"
+                android:layout_marginEnd="20dp"
                 android:gravity="center|center_horizontal"
-                android:text="Date Of Birth"
+                android:labelFor="@id/edtDateOfBirth"
+                android:text="@string/date_of_birth"
                 android:textSize="20sp" />
 
             <EditText
@@ -141,8 +151,9 @@
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/edit_text"
                 android:ems="10"
-                android:hint="Click here"
-                android:inputType="textPersonName"
+                android:hint="@string/click_here"
+                android:importantForAutofill="no"
+                android:inputType="date|textPersonName"
                 android:textSize="20sp" />
 
         </TableRow>
@@ -150,16 +161,17 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="24px"
+            android:layout_marginTop="4dp"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/txtGender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="40px"
+                android:layout_marginEnd="20dp"
                 android:gravity="center|center_horizontal"
-                android:text="Gender"
+                android:labelFor="@id/spnGender"
+                android:text="@string/gender"
                 android:textSize="20sp" />
 
             <Spinner
@@ -172,16 +184,17 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="24px"
+            android:layout_marginTop="4dp"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/txtNickName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="40px"
+                android:layout_marginEnd="20dp"
                 android:gravity="center|center_horizontal"
-                android:text="Nick Name"
+                android:labelFor="@id/edtNickName"
+                android:text="@string/nick_name"
                 android:textSize="20sp" />
 
             <EditText
@@ -190,6 +203,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/edit_text"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:textSize="20sp" />
         </TableRow>
@@ -197,16 +211,17 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="24px"
+            android:layout_marginTop="4dp"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/txtProvince"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="40px"
+                android:layout_marginEnd="20dp"
                 android:gravity="center|center_horizontal"
-                android:text="Province"
+                android:labelFor="@id/spnProvince"
+                android:text="@string/province"
                 android:textSize="20sp" />
 
             <Spinner
@@ -222,34 +237,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="74dp"
-        android:layout_marginTop="40px"
         android:gravity="center_horizontal|top"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnSave"
-            android:layout_width="280px"
+            style="@style/TextAppearance.AppCompat.Button"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="24px"
-            android:layout_marginRight="48px"
-            android:text="Save" />
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:text="@string/save"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnDelete"
-            android:layout_width="280px"
+            style="@style/TextAppearance.AppCompat.Button"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24px"
-            android:layout_marginRight="48px"
-            android:text="Delete" />
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:text="@string/delete"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnCancel"
-            android:layout_width="280px"
+            style="@style/TextAppearance.AppCompat.Button"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24px"
-            android:text="Cancel" />
+            android:layout_marginTop="12dp"
+            android:text="@string/cancel"
+            android:textSize="20sp" />
     </LinearLayout>
 
 
