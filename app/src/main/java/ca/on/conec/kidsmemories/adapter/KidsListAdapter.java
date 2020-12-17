@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,12 +45,13 @@ public class KidsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     /**
      *  ViewHolder for looking list data
      */
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         public TextView mTxtFirstName;
         public TextView mTxtLastName;
         public TextView mTxtDateOfBirth;
         public ImageView mImgKid;
+        public ImageButton btnEditKid;
 
         public ViewHolder(@NonNull View itemView)
         {
@@ -60,22 +62,16 @@ public class KidsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mTxtLastName = (TextView) itemView.findViewById(R.id.txtLName);
             mTxtDateOfBirth = (TextView) itemView.findViewById(R.id.txtDateOfBitrh);
             mImgKid = (ImageView) itemView.findViewById(R.id.imgKid);
+            btnEditKid = (ImageButton) itemView.findViewById(R.id.btnEditKid);
 
+            btnEditKid.setOnClickListener(this);
             itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
         }
 
         // Click Event: Set clicked position, call user defined onClick Function
         @Override
         public void onClick(View v) {
             onClickListner.onItemClick(getAdapterPosition(), v);
-        }
-
-        // Long Click Event: Set clicked position, call user defined onLongClick Function
-        @Override
-        public boolean onLongClick(View v) {
-            onClickListner.onItemLongClick(getAdapterPosition(), v);
-            return true;
         }
     }
 
@@ -94,7 +90,6 @@ public class KidsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public interface onClickListner
     {
         void onItemClick(int position, View v);
-        void onItemLongClick(int position, View v);
     }
 
     /**
