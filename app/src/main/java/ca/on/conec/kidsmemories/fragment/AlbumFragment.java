@@ -159,7 +159,12 @@ public class AlbumFragment extends Fragment {
                     }
                 }
                 */
-                bindAdapter();
+
+                if(postImgList == null) {
+                    mrecyclerView.setAdapter(null);
+                } else {
+                    bindAdapter();
+                }
                 /*
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                 mrecyclerView.setLayoutManager(layoutManager);
@@ -185,5 +190,15 @@ public class AlbumFragment extends Fragment {
         mrecyclerView.setAdapter(albumListAdapter);
         albumListAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onDestroyView() {
+        if(mrecyclerView != null) {
+            mrecyclerView.setAdapter(null);
+        }
+        super.onDestroyView();
+    }
+
+
 
 }

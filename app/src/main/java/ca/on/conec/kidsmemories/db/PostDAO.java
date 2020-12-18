@@ -22,7 +22,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ca.on.conec.kidsmemories.entity.Album;
-import ca.on.conec.kidsmemories.entity.Photo;
 import ca.on.conec.kidsmemories.entity.Post;
 
 
@@ -335,8 +334,6 @@ public class PostDAO extends KidsMemoriesDBHelper{
 
                         Pattern imgPattern = Pattern.compile("(?i)< *[img][^\\>]*[src] *= *[\"\']{0,1}([^\"\'\\ >]*)");
                         Matcher captured = imgPattern.matcher(originContent);
-
-
 
                         while (captured.find()) {
                             String imgPath = captured.group(1);
