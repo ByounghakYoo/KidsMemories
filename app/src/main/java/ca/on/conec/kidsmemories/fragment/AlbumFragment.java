@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import ca.on.conec.kidsmemories.R;
+import ca.on.conec.kidsmemories.adapter.AlbumListAdapter;
 import ca.on.conec.kidsmemories.db.PostDAO;
 import ca.on.conec.kidsmemories.entity.Album;
 import ca.on.conec.kidsmemories.entity.Post;
@@ -35,6 +38,10 @@ public class AlbumFragment extends Fragment {
     int kidId;
     private PostDAO dao;
     ArrayList<Post> postArrayList;
+    RecyclerView mrecyclerView;
+    AlbumListAdapter albumListAdapter;
+
+
     private List<Album> mList = new ArrayList<>();
     private List<String> date = new ArrayList<>();
 
@@ -89,7 +96,7 @@ public class AlbumFragment extends Fragment {
         edtFromdate = (EditText)v.findViewById(R.id.editTextFromdate);
         edtTodate = (EditText)v.findViewById(R.id.editTextTodate);
         btnRetrieve = (Button)v.findViewById(R.id.button);
-
+        mrecyclerView = (RecyclerView)v.findViewById(R.id.recyclerView) ;
         // Get kidId
         kidId = getArguments().getInt("KID_ID");
 
@@ -170,6 +177,14 @@ public class AlbumFragment extends Fragment {
                         mList.add(album);
                     }
                 }
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+                mrecyclerView.setLayoutManager(layoutManager);
+
+                albumListAdapter = new AlbumListAdapter(mList, getContext());
+
+                mrecyclerView.setAdapter(albumListAdapter);
+                albumListAdapter.notifyDataSetChanged();
+
             }
         });
         return v;

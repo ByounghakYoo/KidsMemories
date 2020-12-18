@@ -8,7 +8,7 @@
 
 
     <EditText
-        android:hint="Enter Start Date"
+        android:hint="Start Date"
         android:textSize="16dp"
         android:id="@+id/editTextFromdate"
         android:layout_marginTop="10dp"
