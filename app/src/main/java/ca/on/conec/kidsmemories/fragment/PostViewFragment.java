@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -81,7 +82,10 @@ public class PostViewFragment extends Fragment{
 
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         final Point size = new Point();
-        display.getRealSize(size);
+        display.getSize(size);
+
+        Log.i("info" , size.x + "");
+        Log.i("info" , size.y + "");
 
         if(post != null) {
             txtTitle.setText(post.getTitle());
@@ -89,9 +93,23 @@ public class PostViewFragment extends Fragment{
             Spanned content = Html.fromHtml(post.getContent(), new Html.ImageGetter() {
                 @Override
                 public Drawable getDrawable(String source) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(source);
+
+                    BitmapFactory.Options opt = new BitmapFactory.Options();
+                    opt.inSampleSize = 10;
+
+                    Bitmap bitmap = BitmapFactory.decodeFile(source, opt);
+
                     Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-                    drawable.setBounds(0,0,drawable.getIntrinsicWidth() , drawable.getIntrinsicHeight());
+                    int realImgWidth = drawable.getIntrinsicWidth();
+                    int realImgHeight = drawable.getIntrinsicHeight();
+
+                    int displayWidth = size.x;
+                    float ratio = (float) displayWidth / (float) realImgWidth;
+
+                    int ratioHeight = (int) (realImgHeight * ratio);
+
+                    drawable.setBounds(0, 0, displayWidth, ratioHeight);
+
                     return drawable;
                 }
             }, null);

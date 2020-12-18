@@ -119,7 +119,7 @@ public class WritePostActivity extends AppCompatActivity {
 
                 try (FileOutputStream out = new FileOutputStream(file))
                 {
-                    image.compress(Bitmap.CompressFormat.PNG, 50, out);
+                    image.compress(Bitmap.CompressFormat.JPEG, 50, out);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -148,7 +148,7 @@ public class WritePostActivity extends AppCompatActivity {
     private String getEditorImageFileName() {
         Date date = new Date();
         String timeStr = new SimpleDateFormat("yyyyMMddHHmmss").format(date);
-        return "Kid_" + kidId + "_" + timeStr + ".png";
+        return "Kid_" + kidId + "_" + timeStr + ".jpg";
     }
 
     /**

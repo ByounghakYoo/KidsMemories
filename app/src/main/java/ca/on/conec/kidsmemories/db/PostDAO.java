@@ -44,8 +44,8 @@ public class PostDAO extends KidsMemoriesDBHelper{
                                                 + POST_COL4  + " TEXT, "
                                                 + POST_COL5  + " TEXT, "
                                                 + POST_COL6  + " INTEGER, "
-                                                + POST_COL7  + " INTEGER  "
-                                                + "FOREIGN KEY(" + POST_COL7 + ") REFERENCES "+ KidsDAO.KID_TABLE_NAME+ "(" + KidsDAO.KID_COL1+ ")"
+                                                + POST_COL7  + " INTEGER,  "
+                                                + " FOREIGN KEY(" + POST_COL7 + ") REFERENCES "+ KidsDAO.KID_TABLE_NAME+ "(" + KidsDAO.KID_COL1+ ")"
                                                 + ")";
 
     // Drop table statement
@@ -82,9 +82,10 @@ public class PostDAO extends KidsMemoriesDBHelper{
 
             String base64Img = "";
             while (captured.find()) {
-                base64Img = captured.group(1);  // 글 내용의 이미지들 중 첫번째 이미지만 저장
+                base64Img = captured.group(1);  // Only first image captured
                 imgCnt++;
-                if (imgCnt == 1) {//글 내용 중 이미지가 1개 이상 일 경우에는 더 이상 노출되지 않도록함.
+                if (imgCnt == 1) {
+                    //  do not need next image
                     break;
                 }
             }
@@ -106,7 +107,9 @@ public class PostDAO extends KidsMemoriesDBHelper{
         } catch(Exception e) {
             e.printStackTrace();
         } finally {
-            db.close();
+            if(db != null) {
+                db.close();
+            }
         }
 
         return returnValue;
@@ -121,7 +124,7 @@ public class PostDAO extends KidsMemoriesDBHelper{
     public ArrayList<Post> getPostList(int kidId) {
         ArrayList<Post> postArrayList = null;
         SQLiteDatabase db = kdb.getReadableDatabase();
-        Cursor cursor = null;
+        Cursor cursor;
 
         try {
 
@@ -157,8 +160,9 @@ public class PostDAO extends KidsMemoriesDBHelper{
             e.printStackTrace();
             throw e;
         } finally {
-            cursor.close();
-            db.close();
+            if(db != null) {
+                db.close();
+            }
         }
 
         return postArrayList;
@@ -205,8 +209,9 @@ public class PostDAO extends KidsMemoriesDBHelper{
             e.printStackTrace();
             throw e;
         } finally {
-            cursor.close();
-            db.close();
+            if(db != null) {
+                db.close();
+            }
         }
 
         return post;
@@ -239,7 +244,9 @@ public class PostDAO extends KidsMemoriesDBHelper{
             e.printStackTrace();
             throw e;
         } finally {
-            db.close();
+            if(db != null) {
+                db.close();
+            }
         }
 
         return returnValue;
@@ -253,40 +260,49 @@ public class PostDAO extends KidsMemoriesDBHelper{
     public boolean modifyPost(Post post) {
 
         boolean returnValue = false;
-
         SQLiteDatabase db = kdb.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
 
-        String htmlContent = post.getContent();
+        try {
+            ContentValues contentValues = new ContentValues();
 
-        Pattern imgPattern = Pattern.compile("(?i)< *[img][^\\>]*[src] *= *[\"\']{0,1}([^\"\'\\ >]*)");
-        Matcher captured = imgPattern.matcher(htmlContent);
-        int imgCnt = 0;
+            String htmlContent = post.getContent();
 
-        String base64Img = "";
-        while(captured.find()){
-            base64Img = captured.group(1);  // 글 내용의 이미지들 중 첫번째 이미지만 저장
-            imgCnt++;
-            if(imgCnt == 1){//글 내용 중 이미지가 1개 이상 일 경우에는 더 이상 노출되지 않도록함.
-                break;
+            Pattern imgPattern = Pattern.compile("(?i)< *[img][^\\>]*[src] *= *[\"\']{0,1}([^\"\'\\ >]*)");
+            Matcher captured = imgPattern.matcher(htmlContent);
+            int imgCnt = 0;
+
+            String base64Img = "";
+            while (captured.find()) {
+                base64Img = captured.group(1);
+                imgCnt++;
+                if (imgCnt == 1) {
+                    break;
+                }
             }
-        }
 
 
-        int postId = post.getId();
-        int kidId = post.getKidId();
+            int postId = post.getId();
+            int kidId = post.getKidId();
 
-        contentValues.put(POST_COL2 , post.getTitle());
-        contentValues.put(POST_COL3 , post.getContent());
-        contentValues.put(POST_COL4 , base64Img);
+            contentValues.put(POST_COL2, post.getTitle());
+            contentValues.put(POST_COL3, post.getContent());
+            contentValues.put(POST_COL4, base64Img);
 
 
-        long result = db.update(POST_TABLE_NAME , contentValues , POST_COL1 + "= ? and " + POST_COL7 + "= ?", new String[] {String.valueOf(postId) , String.valueOf(kidId)});
+            long result = db.update(POST_TABLE_NAME, contentValues, POST_COL1 + "= ? and " + POST_COL7 + "= ?", new String[]{String.valueOf(postId), String.valueOf(kidId)});
 
-        if(result == -1) {
-            returnValue = false;
-        } else {
-            returnValue = true;
+            if (result == -1) {
+                returnValue = false;
+            } else {
+                returnValue = true;
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if(db != null) {
+                db.close();
+            }
         }
 
         return returnValue;
