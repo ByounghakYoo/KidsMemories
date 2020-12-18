@@ -24,4 +24,6 @@
     <string name="post_save">SAVE</string>
     <string name="post_modify">MODIFY</string>
     <string name="post_delete">DELETE</string>
+    <string name="title_hint"> Please enter the title</string>
+    <string name="content_hint"> Please enter the title</string>
 </resources>

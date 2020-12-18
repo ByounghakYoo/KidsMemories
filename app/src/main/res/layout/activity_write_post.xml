@@ -21,7 +21,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:padding="20dp"
-                android:hint="Please enter the title"
+                android:hint="@string/title_hint"
                 />
 
             <RelativeLayout
@@ -38,12 +38,12 @@
                     <com.github.irshulx.Editor
                         android:id="@+id/postContent"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="20dp"
                         android:paddingTop="10dp"
                         android:paddingRight="20dp"
                         android:paddingBottom="100dp"
-                        app:placeholder="Please enter the content"
+                        app:placeholder="@string/content_hint"
                         app:render_type="Editor" />
                 </ScrollView>
 
