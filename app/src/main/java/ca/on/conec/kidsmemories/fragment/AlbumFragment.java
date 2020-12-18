@@ -29,6 +29,8 @@ import ca.on.conec.kidsmemories.entity.Post;
 public class AlbumFragment extends Fragment {
     EditText edtFromdate;
     EditText edtTodate;
+    int ssdate;
+    int sedate;
     DatePickerDialog datePicker;
     int kidId;
     private PostDAO dao;
@@ -109,6 +111,7 @@ public class AlbumFragment extends Fragment {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         edtFromdate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+                        ssdate = year+(month+1)+dayOfMonth;
                     }
                 },year, month, day);
 
@@ -130,6 +133,7 @@ public class AlbumFragment extends Fragment {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         edtTodate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+                        sedate = year+(month+1)+dayOfMonth;
                     }
                 },year, month, day);
 
@@ -141,13 +145,10 @@ public class AlbumFragment extends Fragment {
         btnRetrieve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int sdate = Integer.parseInt(edtFromdate.getText().toString());
-                int edate = Integer.parseInt(edtTodate.getText().toString());
-
 
                 for(Post object : postArrayList ) {
                     int wdate = Integer.parseInt(object.getWriteDate().toString());
-                    if (wdate >= sdate && wdate <= edate) {
+                    if (wdate >= ssdate && wdate <= sedate) {
                         date.add(object.getPhotoLink());
                     }
                 }

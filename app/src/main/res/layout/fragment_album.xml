@@ -8,6 +8,7 @@
 
 
     <EditText
+        android:hint="Enter Start Date"
         android:textSize="16dp"
         android:id="@+id/editTextFromdate"
         android:layout_marginTop="10dp"
@@ -27,6 +28,7 @@
         android:text="~"/>
 
     <EditText
+        android:hint="End Date"
         android:textSize="16dp"
         android:id="@+id/editTextTodate"
         android:layout_marginTop="10dp"
@@ -46,7 +48,7 @@
         android:layout_height="wrap_content"
         android:text="Retrieve" />
 
-    <!--
+
     <ScrollView
         android:layout_marginTop="100dp"
         android:layout_width="match_parent"
@@ -59,6 +61,6 @@
              />
 
     </ScrollView>
-    -->
+
 
 </FrameLayout>
