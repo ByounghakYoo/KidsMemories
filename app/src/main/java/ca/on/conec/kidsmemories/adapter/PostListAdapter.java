@@ -29,7 +29,7 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private OnItemClickListener pListener;
 
     /**
-     *
+     * assign postAdapterList;
      * @param list list using recycler view.
      * @param context
      */
@@ -39,6 +39,9 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
+    /**
+     * View Holder Constructor
+     */
     class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView listImgView;
@@ -67,6 +70,12 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
+    /**
+     * VIew Holder Create Layout
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -75,6 +84,11 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return viewHolder;
     }
 
+    /**
+     * Binding Adapter to View Holder
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Post itemAdapter = postAdapterList.get(position);
@@ -93,19 +107,29 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
+    /**
+     * View Holder Item Count
+     * @return
+     */
     @Override
     public int getItemCount() {
         return postAdapterList.size();
     }
 
+    /**
+     * Item List Click Event Listener interface
+     */
     public interface OnItemClickListener {
         void onItemClick(View v, int pos);
     }
 
+    /**
+     * Setter Item Click Listener
+     * @param listener
+     */
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.pListener = listener;
     }
-
 
 }
 

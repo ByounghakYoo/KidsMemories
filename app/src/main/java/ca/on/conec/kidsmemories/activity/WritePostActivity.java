@@ -3,51 +3,36 @@ package ca.on.conec.kidsmemories.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
-import android.text.Html;
-import android.text.Spanned;
-import android.util.Base64;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.github.irshulx.Editor;
 import com.github.irshulx.EditorListener;
-import com.github.irshulx.models.EditorContent;
 import com.github.irshulx.models.EditorTextStyle;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Calendar;
 import java.util.Map;
 
-import ca.on.conec.kidsmemories.MyKidsActivity;
 import ca.on.conec.kidsmemories.R;
 import ca.on.conec.kidsmemories.db.PostDAO;
 import ca.on.conec.kidsmemories.entity.Post;
-import ca.on.conec.kidsmemories.fragment.PostFragment;
 
 public class WritePostActivity extends AppCompatActivity {
 
@@ -56,6 +41,10 @@ public class WritePostActivity extends AppCompatActivity {
     String writeActionType;
     int kidId , postId;
 
+    /**
+     * create life cycle
+     * @param savedInstanceState
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,12 +134,21 @@ public class WritePostActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * generate image file name
+     * @return image file name
+     */
     private String getEditorImageFileName() {
         Date date = new Date();
         String timeStr = new SimpleDateFormat("yyyyMMddHHmmss").format(date);
         return "Kid_" + kidId + "_" + timeStr + ".png";
     }
 
+    /**
+     * option emnu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.post_write_actionbar, menu);
@@ -162,6 +160,11 @@ public class WritePostActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Option Item Clicked
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
@@ -186,11 +189,17 @@ public class WritePostActivity extends AppCompatActivity {
     }
 
 
-    public void SavePost(String titleString , String content) {
+    /**
+     * Insert Post
+     * @param title title
+     * @param content content
+     */
+    public void SavePost(String title, String content) {
+
         Post post = new Post();
-        post.setTitle(titleString);
+        post.setTitle(title);
         post.setContent(content);
-        post.setKidId(1);
+        post.setKidId(kidId);
 
         PostDAO postDAO = new PostDAO(this);
         boolean result = postDAO.createPost(post);
@@ -205,6 +214,11 @@ public class WritePostActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Update Post
+     * @param title title
+     * @param content content
+     */
     private void UpdatePost(String title, String content) {
         Post post = new Post();
         post.setTitle(title);
@@ -226,6 +240,9 @@ public class WritePostActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Editor Button assign
+     */
     public void setEditorBtnSetup() {
 
         findViewById(R.id.action_h1).setOnClickListener(new View.OnClickListener() {
@@ -336,6 +353,12 @@ public class WritePostActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Activity result for upload photo
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

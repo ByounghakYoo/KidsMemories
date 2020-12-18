@@ -5,19 +5,19 @@
     <group android:id="@+id/saveGroup">
     <item
         android:id="@+id/postSave"
-        android:title="SAVE"
+        android:title="@string/post_save"
         app:showAsAction="always" />
     </group>
     <group android:id="@+id/updateGroup">
     <item
         android:id="@+id/postUpdate"
-        android:title="Modify"
-        app:showAsAction="always" />
+        android:title="@string/post_modify"
+        app:showAsAction="ifRoom" />
     </group>
     <group android:id="@+id/deleteGroup">
     <item
         android:id="@+id/postDelete"
-        android:title="Delete"
-        app:showAsAction="always" />
+        android:title="@string/post_delete"
+        app:showAsAction="ifRoom" />
     </group>
 </menu>

@@ -3,8 +3,6 @@
  * Purpose : Related to Post list Fragment
  * Revision History :
  *          Created by Byunghak Yoo (Henry) 2020.12.10
- *
- *          https://www.iconfinder.com/search/?q=android+write&price=free
  */
 package ca.on.conec.kidsmemories.fragment;
 

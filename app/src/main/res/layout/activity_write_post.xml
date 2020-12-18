@@ -10,7 +10,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
 
             <EditText
                 android:id="@+id/postTitle"
@@ -43,7 +44,7 @@
                         android:paddingRight="20dp"
                         android:paddingBottom="100dp"
                         app:placeholder="Please enter the content"
-                        app:render_type="Editor"></com.github.irshulx.Editor>
+                        app:render_type="Editor" />
                 </ScrollView>
 
                 <!-- Begin Editor toolbar -->

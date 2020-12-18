@@ -1,3 +1,11 @@
+/**
+ * FileName : MyKidsActivity
+ * Purpose : Kid Activity include Post, immunization info and gallery
+ * Revision History :
+ *          Created by Byunghak Yoo (Henry) 2020.12.10
+ */
+
+
 package ca.on.conec.kidsmemories;
 
 import androidx.annotation.NonNull;
@@ -7,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -20,7 +29,13 @@ public class MyKidsActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     Fragment fragment;
+    int kidId;
 
+    /**
+     * Create Activity
+     * Attach Post fragment and bottom Navigation
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +45,9 @@ public class MyKidsActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         // Get KidId from previous activiry
-        final int kidId = getIntent().getIntExtra("KID_ID", 0);
+        kidId = getIntent().getIntExtra("KID_ID", 0);
+
+        Log.d("info" , ">>>" + kidId);
 
         fragment = new PostFragment();
 
@@ -43,8 +60,7 @@ public class MyKidsActivity extends AppCompatActivity {
         transaction.commit();
         transaction.addToBackStack(null);
 
-
-
+        // Click bottom navigation and move those fragment.
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -68,6 +84,7 @@ public class MyKidsActivity extends AppCompatActivity {
                 if(fragment != null) {
                     // Send KidId to fragments
                     // Use: int kidId = getArguments().getInt("KID_ID");
+                    Log.d("info" , ">>>>>>>>>> frag click : "+kidId);
                     Bundle bundle = new Bundle();
                     bundle.putInt("KID_ID", kidId);
                     fragment.setArguments(bundle);

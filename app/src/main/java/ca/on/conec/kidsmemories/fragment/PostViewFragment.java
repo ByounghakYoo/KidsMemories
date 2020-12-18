@@ -1,3 +1,9 @@
+/*
+ * FileName : PostViewFragment
+ * Purpose : Related to Post detail Fragment
+ * Revision History :
+ *          Created by Byunghak Yoo (Henry) 2020.12.15
+ */
 package ca.on.conec.kidsmemories.fragment;
 
 import android.app.Activity;
@@ -9,20 +15,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LevelListDrawable;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,12 +34,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import ca.on.conec.kidsmemories.MyKidsActivity;
 import ca.on.conec.kidsmemories.R;
 import ca.on.conec.kidsmemories.activity.WritePostActivity;
-import ca.on.conec.kidsmemories.adapter.PostListAdapter;
 import ca.on.conec.kidsmemories.db.PostDAO;
 import ca.on.conec.kidsmemories.entity.Post;
 
@@ -49,11 +47,21 @@ public class PostViewFragment extends Fragment{
 
     int postId , kidId;
 
+    /**
+     * Constructor
+     */
     public PostViewFragment() {
         // Required empty public constructor
     }
 
 
+    /**
+     * when the create the fragment
+     * @param inflater inflater
+     * @param container container
+     * @param savedInstanceState  savedInstantState
+     * @return view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -100,6 +108,12 @@ public class PostViewFragment extends Fragment{
 
     }
 
+    /**
+     * Menu Draw
+     * Modify and delete Button draw
+     * @param menu menu item in xml
+     * @param inflater inflater
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.post_write_actionbar, menu);
@@ -109,6 +123,11 @@ public class PostViewFragment extends Fragment{
     }
 
 
+    /**
+     * Modify or Delete click Action
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
@@ -125,6 +144,7 @@ public class PostViewFragment extends Fragment{
             case R.id.postDelete :
                 // delete post and then go to list page;
                 // Delete
+                // Confirm and if 'Yes' , delete post
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Delete")
@@ -148,6 +168,10 @@ public class PostViewFragment extends Fragment{
         }
     }
 
+    /**
+     * Delete Post method
+     * @param postId
+     */
     private void deletePost(int postId) {
             Post post = new Post();
             post.setId(postId);
@@ -177,6 +201,14 @@ public class PostViewFragment extends Fragment{
     }
 
 
+    /**
+     * Update Activity Result.
+     * When update complete, detach fragment and attach
+     * because display new content
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
