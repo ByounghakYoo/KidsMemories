@@ -3,6 +3,7 @@ package ca.on.conec.kidsmemories.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,13 +54,17 @@ public class AlbumListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         Album itemAdapter = mList.get(position);
         String item1 = itemAdapter.getImage1();
-        String item2 = itemAdapter.getImage1();
+        String item2 = itemAdapter.getImage2();
+
+        Log.i("info" , ">>>>>>>>>>>" + item1);
+        Log.i("info" , ">>>>>>>>>>>" + item2);
+
         Bitmap bitmap1 = BitmapFactory.decodeFile( item1);
         Bitmap bitmap2 = BitmapFactory.decodeFile( item2);
 
         ((ViewHolder) holder).image1.setImageBitmap(bitmap1);
-
         ((ViewHolder) holder).image2.setImageBitmap(bitmap2);
+
     }
 
     @Override
