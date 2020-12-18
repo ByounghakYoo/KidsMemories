@@ -24,4 +24,13 @@
     <string name="post_save">SAVE</string>
     <string name="post_modify">MODIFY</string>
     <string name="post_delete">DELETE</string>
+    <string name="memo">Memo :</string>
+    <string name="memo_save">Memo Save</string>
+    <string name="memo_delete">Memo Delete</string>
+    <string name="textview">TextView</string>
+    <string name="calendar">Calendar</string>
+    <string name="my_history">My History</string>
+    <string name="site">Site</string>
+    <string name="immunization_schedules_calendar">Immunization Schedules(Calendar)</string>
+    <string name="immunization_schedule_list">Immunization Schedule(List)</string>
 </resources>
