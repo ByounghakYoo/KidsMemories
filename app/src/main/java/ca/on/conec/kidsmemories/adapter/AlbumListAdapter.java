@@ -18,6 +18,7 @@ import ca.on.conec.kidsmemories.R;
 import ca.on.conec.kidsmemories.entity.Album;
 
 public class AlbumListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
     private List<Album> mList;
 
     public  AlbumListAdapter(List<Album> list, Context context){
@@ -28,14 +29,14 @@ public class AlbumListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     class  ViewHolder extends  RecyclerView.ViewHolder
     {
         public ImageView image1;
-        public ImageView image2;
+
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             image1 = (ImageView) itemView.findViewById(R.id.image1);
-            image2 = (ImageView) itemView.findViewById(R.id.image2);
+            //image2 = (ImageView) itemView.findViewById(R.id.image2);
 
         }
     }
@@ -53,17 +54,20 @@ public class AlbumListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         Album itemAdapter = mList.get(position);
-        String item1 = itemAdapter.getImage1();
-        String item2 = itemAdapter.getImage2();
+        String item1 = itemAdapter.getImgPath();
+        //String item2 = itemAdapter.getImage2();
 
         Log.i("info" , ">>>>>>>>>>>" + item1);
-        Log.i("info" , ">>>>>>>>>>>" + item2);
+        //Log.i("info" , ">>>>>>>>>>>" + item2);
 
-        Bitmap bitmap1 = BitmapFactory.decodeFile( item1);
-        Bitmap bitmap2 = BitmapFactory.decodeFile( item2);
+        BitmapFactory.Options opt = new BitmapFactory.Options();
+        opt.inSampleSize = 10;
+
+        Bitmap bitmap1 = BitmapFactory.decodeFile(item1 , opt);
+        //Bitmap bitmap2 = BitmapFactory.decodeFile( item2);
 
         ((ViewHolder) holder).image1.setImageBitmap(bitmap1);
-        ((ViewHolder) holder).image2.setImageBitmap(bitmap2);
+        //((ViewHolder) holder).image2.setImageBitmap(bitmap2);
 
     }
 

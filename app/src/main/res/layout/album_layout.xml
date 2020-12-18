@@ -14,10 +14,12 @@
         android:layout_height="150dp"
         app:srcCompat="@drawable/avatar_f" />
 
+    <!--
     <ImageView
         android:id="@+id/image2"
         android:layout_marginLeft="205dp"
         android:layout_width="170dp"
         android:layout_height="150dp"
         app:srcCompat="@drawable/avatar_m" />
+        -->
 </RelativeLayout>

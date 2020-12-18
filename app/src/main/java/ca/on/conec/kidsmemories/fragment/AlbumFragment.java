@@ -4,10 +4,9 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +20,11 @@ import java.util.List;
 
 import ca.on.conec.kidsmemories.R;
 import ca.on.conec.kidsmemories.adapter.AlbumListAdapter;
-import ca.on.conec.kidsmemories.adapter.PostListAdapter;
 import ca.on.conec.kidsmemories.db.PostDAO;
 import ca.on.conec.kidsmemories.entity.Album;
 import ca.on.conec.kidsmemories.entity.Post;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AlbumFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class AlbumFragment extends Fragment {
     EditText edtFromdate;
     EditText edtTodate;
@@ -47,45 +41,10 @@ public class AlbumFragment extends Fragment {
     private List<Album> mList = new ArrayList<>();
     private List<String> date = new ArrayList<>();
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public AlbumFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AlbumFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AlbumFragment newInstance(String param1, String param2) {
-        AlbumFragment fragment = new AlbumFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -155,6 +114,21 @@ public class AlbumFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                ArrayList<Album> postImgList = dao.getPostImgList(kidId , edtFromdate.getText().toString() , edtTodate.getText().toString());
+
+                mList = postImgList;
+                /*
+                if(postImgList != null) {
+                    Log.d("info" , "KKKKKKKKKKK");
+                    for (int i = 0; i < postImgList.size(); i++) {
+                        String link = postImgList.get(i);
+                        Log.i("info", ">>>" + link);
+                    }
+                }
+
+                 */
+
+                /*
                 for(Post object : postArrayList ) {
                     String swdate = object.getWriteDate().toString();
                     int wdate = Integer.parseInt(swdate.substring(0,4))+Integer.parseInt(swdate.substring(5,7)) + Integer.parseInt(swdate.substring(8,10));
@@ -164,6 +138,7 @@ public class AlbumFragment extends Fragment {
                         }
                     }
                 }
+
 
                 Album album = new Album();
                 int count = 0;
@@ -183,7 +158,7 @@ public class AlbumFragment extends Fragment {
                         mList.add(album);
                     }
                 }
-
+                */
                 bindAdapter();
                 /*
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -203,7 +178,8 @@ public class AlbumFragment extends Fragment {
      * binding recyclerView.
      */
     private void bindAdapter() {
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext() , 2);
+
         mrecyclerView.setLayoutManager(layoutManager);
         albumListAdapter = new AlbumListAdapter(mList, getContext());
         mrecyclerView.setAdapter(albumListAdapter);

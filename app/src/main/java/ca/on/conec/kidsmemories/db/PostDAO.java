@@ -11,6 +11,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.Html;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -20,6 +21,8 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ca.on.conec.kidsmemories.entity.Album;
+import ca.on.conec.kidsmemories.entity.Photo;
 import ca.on.conec.kidsmemories.entity.Post;
 
 
@@ -306,6 +309,57 @@ public class PostDAO extends KidsMemoriesDBHelper{
         }
 
         return returnValue;
-
     }
+
+    public ArrayList<Album> getPostImgList(int kidId, String startDate , String endDate) {
+        ArrayList<Album> imgArrayList = null;
+        SQLiteDatabase db = kdb.getReadableDatabase();
+        Cursor cursor;
+
+        try {
+
+            Log.d("info" , ">>" + startDate);
+            Log.d("info" , ">>" + endDate);
+            cursor = db.rawQuery(" SELECT "  + POST_COL1 + ", " + POST_COL2 + ", " + POST_COL3 + ", "
+                    + POST_COL4 + ", strftime('%Y-%m-%d' , " + POST_COL5 + ") as write_date, "+ POST_COL6 + ", " + POST_COL7 + " FROM "
+                    + POST_TABLE_NAME + " WHERE " + POST_COL7 + "= ? AND strftime('%Y-%m-%d' , " + POST_COL5 + ") BETWEEN ? AND ? "  , new String[]{String.valueOf(kidId) , String.valueOf(startDate) , String.valueOf(endDate)});
+
+            if(cursor != null) {
+
+                if(cursor.moveToFirst()) {
+                    imgArrayList = new ArrayList<Album>();
+                    do {
+
+                        String originContent = cursor.getString(cursor.getColumnIndex(POST_COL3));
+
+
+                        Pattern imgPattern = Pattern.compile("(?i)< *[img][^\\>]*[src] *= *[\"\']{0,1}([^\"\'\\ >]*)");
+                        Matcher captured = imgPattern.matcher(originContent);
+
+
+
+                        while (captured.find()) {
+                            String imgPath = captured.group(1);
+                            Album album = new Album(imgPath);
+
+                            imgArrayList.add(album);
+                        }
+                    } while(cursor.moveToNext());
+
+                }
+                cursor.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if(db != null) {
+                db.close();
+            }
+        }
+
+        return imgArrayList;
+    }
+
 }
