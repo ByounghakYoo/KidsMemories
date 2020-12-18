@@ -1,4 +1,4 @@
-/**
+/*
  * FileName : PostDAO
  * Purpose : Database related to post with SQLiteOpenHelper
  * Revision History
@@ -10,9 +10,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.text.Html;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -27,8 +25,9 @@ import ca.on.conec.kidsmemories.entity.Post;
 
 public class PostDAO extends KidsMemoriesDBHelper{
 
-    public static final String POST_TABLE_NAME = "Post";
+    public static final String POST_TABLE_NAME = "Post";        // table name
 
+    // DB Schema
     public static final String POST_COL1 = "postId";
     public static final String POST_COL2 = "title";
     public static final String POST_COL3 = "content";
@@ -37,6 +36,7 @@ public class PostDAO extends KidsMemoriesDBHelper{
     public static final String POST_COL6 = "view_count";
     public static final String POST_COL7 = "kidId";
 
+    // Create table statement
     public static final String CREATE_POST_TABLE = "CREATE TABLE " + POST_TABLE_NAME + "("
                                                 + POST_COL1  + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                                                 + POST_COL2  + " TEXT, "
@@ -45,12 +45,19 @@ public class PostDAO extends KidsMemoriesDBHelper{
                                                 + POST_COL5  + " TEXT, "
                                                 + POST_COL6  + " INTEGER, "
                                                 + POST_COL7  + " INTEGER  "
+                                                + "FOREIGN KEY(" + POST_COL7 + ") REFERENCES "+ KidsDAO.KID_TABLE_NAME+ "(" + KidsDAO.KID_COL1+ ")"
                                                 + ")";
 
+    // Drop table statement
     public static final String DROP_POST_TABLE = "DROP TABLE IF EXISTS " + POST_TABLE_NAME;
 
     KidsMemoriesDBHelper kdb;
 
+    /**
+     * constructor DAO
+     * assign DBHelper
+     * @param context
+     */
     public PostDAO(@Nullable Context context) {
         super(context);
         kdb = new KidsMemoriesDBHelper(context);
@@ -153,6 +160,12 @@ public class PostDAO extends KidsMemoriesDBHelper{
     }
 
 
+    /**
+     * Retrive detail info for kids
+     * @param postId
+     * @param kidId
+     * @return
+     */
     public Post getPostView(int postId , int kidId) {
         Post post = null;
         SQLiteDatabase db = kdb.getReadableDatabase();
@@ -194,6 +207,11 @@ public class PostDAO extends KidsMemoriesDBHelper{
         return post;
     }
 
+    /**
+     * delete post
+     * @param post
+     * @return
+     */
     public boolean deletePost(Post post) {
 
         boolean returnValue = false;
@@ -222,6 +240,11 @@ public class PostDAO extends KidsMemoriesDBHelper{
         return returnValue;
     }
 
+    /**
+     * update post
+     * @param post
+     * @return
+     */
     public boolean modifyPost(Post post) {
 
         boolean returnValue = false;

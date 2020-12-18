@@ -21,5 +21,7 @@
 
 
     <!-- Related to Post -->
-
+    <string name="post_save">SAVE</string>
+    <string name="post_modify">MODIFY</string>
+    <string name="post_delete">DELETE</string>
 </resources>
