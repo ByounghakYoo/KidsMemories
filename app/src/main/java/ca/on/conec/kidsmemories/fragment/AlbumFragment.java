@@ -108,7 +108,7 @@ public class AlbumFragment extends Fragment {
                 datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        edtFromdate.setText(dayOfMonth+"/"+(month+1)+"/"+year);
+                        edtFromdate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
                     }
                 },year, month, day);
 
