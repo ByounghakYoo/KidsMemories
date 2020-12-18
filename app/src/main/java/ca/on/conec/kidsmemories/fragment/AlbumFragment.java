@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import ca.on.conec.kidsmemories.R;
 import ca.on.conec.kidsmemories.adapter.AlbumListAdapter;
+import ca.on.conec.kidsmemories.adapter.PostListAdapter;
 import ca.on.conec.kidsmemories.db.PostDAO;
 import ca.on.conec.kidsmemories.entity.Album;
 import ca.on.conec.kidsmemories.entity.Post;
@@ -157,12 +159,15 @@ public class AlbumFragment extends Fragment {
                     String swdate = object.getWriteDate().toString();
                     int wdate = Integer.parseInt(swdate.substring(0,4))+Integer.parseInt(swdate.substring(5,7)) + Integer.parseInt(swdate.substring(8,10));
                     if (wdate >= ssdate && wdate <= sedate) {
-                        date.add(object.getPhotoLink());
+                        if(object.getPhotoLink() != null && !"".equals(object.getPhotoLink())) {
+                            date.add(object.getPhotoLink());
+                        }
                     }
                 }
 
                 int count = 0;
                 for (String link : date) {
+                    Log.d("info" , ">>>>>" + link);
                     Album album = new Album();
                     if (count % 2 == 0) {
                         album.setImage1(link);
@@ -177,6 +182,9 @@ public class AlbumFragment extends Fragment {
                         mList.add(album);
                     }
                 }
+
+                bindAdapter();
+                /*
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                 mrecyclerView.setLayoutManager(layoutManager);
 
@@ -184,9 +192,21 @@ public class AlbumFragment extends Fragment {
 
                 mrecyclerView.setAdapter(albumListAdapter);
                 albumListAdapter.notifyDataSetChanged();
-
+                */
             }
         });
         return v;
     }
+
+    /**
+     * binding recyclerView.
+     */
+    private void bindAdapter() {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        mrecyclerView.setLayoutManager(layoutManager);
+        albumListAdapter = new AlbumListAdapter(mList, getContext());
+        mrecyclerView.setAdapter(albumListAdapter);
+        albumListAdapter.notifyDataSetChanged();
+    }
+
 }
