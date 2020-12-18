@@ -37,4 +37,11 @@
     <string name="site">Site</string>
     <string name="immunization_schedules_calendar">Immunization Schedules(Calendar)</string>
     <string name="immunization_schedule_list">Immunization Schedule(List)</string>
+
+    <!-- Related to Album -->
+    <string name="startdate_hint">Start Date</string>
+    <string name="enddate_hint">End Date</string>
+    <string name="during">~</string>
+    <string name="retrieve_btn">Retrieve</string>
+
 </resources>

@@ -8,7 +8,7 @@
 
 
     <EditText
-        android:hint="Start Date"
+        android:hint="@string/startdate_hint"
         android:textSize="16dp"
         android:id="@+id/editTextFromdate"
         android:layout_marginTop="10dp"
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="" />
+        />
 
     <TextView
         android:layout_marginLeft="125dp"
@@ -25,10 +25,10 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="~"/>
+        android:text="@string/during"/>
 
     <EditText
-        android:hint="End Date"
+        android:hint="@string/enddate_hint"
         android:textSize="16dp"
         android:id="@+id/editTextTodate"
         android:layout_marginTop="10dp"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="" />
+        />
 
     <Button
 
@@ -46,19 +46,19 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Retrieve" />
+        android:text="@string/retrieve_btn" />
 
 
     <ScrollView
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="746dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-             />
+            android:layout_height="200dp"
+            />
 
     </ScrollView>
 
