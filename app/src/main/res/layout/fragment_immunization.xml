@@ -13,7 +13,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
         android:background="@color/button"
-        android:text="Calendar" />
+        android:text="@string/calendar" />
 
     <Button
         android:id="@+id/btnHistory"
@@ -22,7 +22,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginLeft="140dp"
         android:background="@color/button"
-        android:text="My History" />
+        android:text="@string/my_history" />
 
     <Button
         android:id="@+id/btnList"
@@ -31,7 +31,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginLeft="270dp"
         android:background="@color/button"
-        android:text="Site" />
+        android:text="@string/site" />
 
     <Button
         android:id="@+id/btnSchedule"
@@ -40,7 +40,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginLeft="30dp"
         android:background="@color/button"
-        android:text="Immunization Schedules(Calendar)" />
+        android:text="@string/immunization_schedules_calendar" />
 
     <Button
         android:id="@+id/btnScheduleList"
@@ -49,7 +49,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginLeft="210dp"
         android:background="@color/button"
-        android:text="Immunization Schedule(List)" />
+        android:text="@string/immunization_schedule_list" />
 
     <FrameLayout
         android:id="@+id/frameLayout"

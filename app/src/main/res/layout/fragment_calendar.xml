@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="22dp"
         android:layout_marginTop="343dp"
-        android:text="Memo : " />
+        android:text="@string/memo" />
 
     <EditText
         android:id="@+id/editMemo"
@@ -40,7 +40,7 @@
         android:layout_height="40dp"
         android:layout_marginLeft="180dp"
         android:layout_marginTop="380dp"
-        android:text="Memo Save"
+        android:text="@string/memo_save"
         android:textSize="10dp" />
 
     <Button
@@ -49,7 +49,7 @@
         android:layout_height="40dp"
         android:layout_marginLeft="280dp"
         android:layout_marginTop="380dp"
-        android:text="Memo Delete"
+        android:text="@string/memo_delete"
         android:textSize="10dp" />
 
 
