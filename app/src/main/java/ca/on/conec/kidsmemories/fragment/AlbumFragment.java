@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -161,21 +162,26 @@ public class AlbumFragment extends Fragment {
                     }
                 }
 
+
+                Album album = new Album();
                 int count = 0;
                 for (String link : date) {
-                    Album album = new Album();
-                    if (count % 2 == 0) {
+                    Log.d("info", ">>>>>" + link);
+                    if (count * 2 == 0) {
+                        album = new Album();
                         album.setImage1(link);
                         count++;
                     } else {
                         album.setImage2(link);
                         count++;
                     }
-                    if (date.size() != count - 1 && count % 2 == 0) {
+                    if (date.size() != count && count % 2 == 0) {
                         mList.add(album);
-                    } else if (date.size() == count - 1) {
+                    } else if (date.size() == count) {
                         mList.add(album);
                     }
+
+
                 }
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                 mrecyclerView.setLayoutManager(layoutManager);
