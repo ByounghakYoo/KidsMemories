@@ -116,7 +116,7 @@ public class AlbumFragment extends Fragment {
 
                 ArrayList<Album> postImgList = dao.getPostImgList(kidId , edtFromdate.getText().toString() , edtTodate.getText().toString());
 
-                mList = postImgList;
+                mList = postImgList;   
                 /*
                 if(postImgList != null) {
                     Log.d("info" , "KKKKKKKKKKK");
