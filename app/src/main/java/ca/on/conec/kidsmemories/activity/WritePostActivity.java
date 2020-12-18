@@ -1,3 +1,10 @@
+/*
+ * FileName : WritePostActivity
+ * Purpose : Write and update form activity
+ * Revision History
+ *          Created by Byounghak Yoo (Henry) 2020.12.10
+ *
+ */
 package ca.on.conec.kidsmemories.activity;
 
 import android.app.Activity;

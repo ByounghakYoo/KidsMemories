@@ -70,38 +70,43 @@ public class PostDAO extends KidsMemoriesDBHelper{
      */
     public boolean createPost (Post post) {
         boolean returnValue = false;
-
         SQLiteDatabase db = kdb.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
 
-        String htmlContent = post.getContent();
+        try {
+            ContentValues contentValues = new ContentValues();
+            String htmlContent = post.getContent();
 
-        Pattern imgPattern = Pattern.compile("(?i)< *[img][^\\>]*[src] *= *[\"\']{0,1}([^\"\'\\ >]*)");
-        Matcher captured = imgPattern.matcher(htmlContent);
-        int imgCnt = 0;
+            Pattern imgPattern = Pattern.compile("(?i)< *[img][^\\>]*[src] *= *[\"\']{0,1}([^\"\'\\ >]*)");
+            Matcher captured = imgPattern.matcher(htmlContent);
+            int imgCnt = 0;
 
-        String base64Img = "";
-        while(captured.find()){
-            base64Img = captured.group(1);  // 글 내용의 이미지들 중 첫번째 이미지만 저장
-            imgCnt++;
-            if(imgCnt == 1){//글 내용 중 이미지가 1개 이상 일 경우에는 더 이상 노출되지 않도록함.
-                break;
+            String base64Img = "";
+            while (captured.find()) {
+                base64Img = captured.group(1);  // 글 내용의 이미지들 중 첫번째 이미지만 저장
+                imgCnt++;
+                if (imgCnt == 1) {//글 내용 중 이미지가 1개 이상 일 경우에는 더 이상 노출되지 않도록함.
+                    break;
+                }
             }
-        }
 
-        contentValues.put(POST_COL2 , post.getTitle());
-        contentValues.put(POST_COL3 , post.getContent());
-        contentValues.put(POST_COL4 , base64Img);
-        contentValues.put(POST_COL5 , new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-        contentValues.put(POST_COL6 , post.getViewCount());
-        contentValues.put(POST_COL7 , post.getKidId());
+            contentValues.put(POST_COL2, post.getTitle());
+            contentValues.put(POST_COL3, post.getContent());
+            contentValues.put(POST_COL4, base64Img);
+            contentValues.put(POST_COL5, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            contentValues.put(POST_COL6, post.getViewCount());
+            contentValues.put(POST_COL7, post.getKidId());
 
-        long result = db.insert(POST_TABLE_NAME , null , contentValues);
+            long result = db.insert(POST_TABLE_NAME, null, contentValues);
 
-        if(result == -1) {
-            returnValue = false;
-        } else {
-            returnValue = true;
+            if (result == -1) {
+                returnValue = false;
+            } else {
+                returnValue = true;
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.close();
         }
 
         return returnValue;
