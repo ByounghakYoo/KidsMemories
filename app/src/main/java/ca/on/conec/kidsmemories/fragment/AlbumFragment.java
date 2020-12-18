@@ -147,7 +147,8 @@ public class AlbumFragment extends Fragment {
             public void onClick(View v) {
 
                 for(Post object : postArrayList ) {
-                    int wdate = Integer.parseInt(object.getWriteDate().toString());
+                    String swdate = object.getWriteDate().toString();
+                    int wdate = Integer.parseInt(swdate.substring(0,2))+Integer.parseInt(swdate.substring(3,5)) + Integer.parseInt(swdate.substring(6,8));
                     if (wdate >= ssdate && wdate <= sedate) {
                         date.add(object.getPhotoLink());
                     }
