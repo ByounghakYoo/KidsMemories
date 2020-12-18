@@ -58,7 +58,6 @@ public class MyKidsActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_layout , fragment);
         transaction.commit();
-        transaction.addToBackStack(null);
 
         // Click bottom navigation and move those fragment.
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
