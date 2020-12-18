@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/imgKid"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="8dp"
                 android:layout_toEndOf="@+id/imgKid"
                 android:text="@string/first_name"
                 android:textSize="20sp"
@@ -52,7 +52,7 @@
                 android:layout_below="@+id/txtFName"
                 android:layout_alignStart="@+id/txtFName"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/last_name"
                 android:textSize="20sp" />
 
@@ -63,11 +63,30 @@
                 android:layout_below="@+id/txtLName"
                 android:layout_alignStart="@+id/txtLName"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/dob"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/txtFName"
                 app:layout_constraintTop_toTopOf="@+id/imgKid" />
+
+            <ImageButton
+                android:id="@+id/btnEditKid"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_below="@+id/txtDateOfBitrh"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@color/background"
+                android:padding="0dp"
+                android:scaleType="centerInside"
+                android:tint="@color/colorPrimaryDark"
+                app:srcCompat="@drawable/edit_icon" />
 
         </RelativeLayout>
 

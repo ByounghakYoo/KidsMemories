@@ -141,16 +141,16 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new KidsListAdapter.onClickListner() {
             @Override
             public void onItemClick(int position, View v) {
-                // Go to Next Activity (3 Fragments)
-                Intent intent = new Intent(MainActivity.this , MyKidsActivity.class);
-                intent.putExtra("KID_ID", mAdapter.getKidId(position));
-                startActivity(intent);
-            }
+                Intent intent;
 
-            @Override
-            public void onItemLongClick(int position, View v) {
-                // Go to Activity for adding a new kid
-                Intent intent = new Intent(MainActivity.this , AddKidActivity.class);
+                if (v.getId() == R.id.btnEditKid) {
+                    // Go to Activity for adding a new kid
+                    intent = new Intent(MainActivity.this , AddKidActivity.class);
+                } else {
+                    // Go to Next Activity (3 Fragments)
+                    intent = new Intent(MainActivity.this , MyKidsActivity.class);
+                }
+
                 intent.putExtra("KID_ID", mAdapter.getKidId(position));
                 startActivity(intent);
             }

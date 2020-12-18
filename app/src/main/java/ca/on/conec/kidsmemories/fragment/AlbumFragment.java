@@ -12,9 +12,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import ca.on.conec.kidsmemories.R;
+import ca.on.conec.kidsmemories.db.PostDAO;
+import ca.on.conec.kidsmemories.entity.Album;
+import ca.on.conec.kidsmemories.entity.Post;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +30,11 @@ public class AlbumFragment extends Fragment {
     EditText edtFromdate;
     EditText edtTodate;
     DatePickerDialog datePicker;
+    int kidId;
+    private PostDAO dao;
+    ArrayList<Post> postArrayList;
+    private List<Album> mList = new ArrayList<>();
+    private List<String> date = new ArrayList<>();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,6 +88,14 @@ public class AlbumFragment extends Fragment {
         edtTodate = (EditText)v.findViewById(R.id.editTextTodate);
         btnRetrieve = (Button)v.findViewById(R.id.button);
 
+        // Get kidId
+        kidId = getArguments().getInt("KID_ID");
+
+        dao = new PostDAO(getActivity());
+        postArrayList = new ArrayList<>();
+        postArrayList = dao.getPostList(kidId);
+
+
         edtFromdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +108,7 @@ public class AlbumFragment extends Fragment {
                 datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        edtFromdate.setText(dayOfMonth+"/"+(month+1)+"/"+year);
+                        edtFromdate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
                     }
                 },year, month, day);
 
@@ -111,7 +129,7 @@ public class AlbumFragment extends Fragment {
                 datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        edtTodate.setText(dayOfMonth+"/"+(month+1)+"/"+year);
+                        edtTodate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
                     }
                 },year, month, day);
 
@@ -123,8 +141,33 @@ public class AlbumFragment extends Fragment {
         btnRetrieve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int sdate = Integer.parseInt(edtFromdate.getText().toString());
+                int edate = Integer.parseInt(edtTodate.getText().toString());
 
 
+                for(Post object : postArrayList ) {
+                    int wdate = Integer.parseInt(object.getWriteDate().toString());
+                    if (wdate >= sdate && wdate <= edate) {
+                        date.add(object.getPhotoLink());
+                    }
+                }
+
+                int count = 0;
+                for (String link : date) {
+                    Album album = new Album();
+                    if (count % 2 == 0) {
+                        album.setImage1(link);
+                        count++;
+                    } else {
+                        album.setImage2(link);
+                        count++;
+                    }
+                    if (date.size() != count - 1 && count % 2 == 0) {
+                        mList.add(album);
+                    } else if (date.size() == count - 1) {
+                        mList.add(album);
+                    }
+                }
             }
         });
         return v;
