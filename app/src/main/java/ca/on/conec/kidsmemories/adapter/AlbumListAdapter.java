@@ -20,29 +20,30 @@ import ca.on.conec.kidsmemories.entity.Album;
 public class AlbumListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Album> mList;
-
+    // List variable for album data
+    //Constructor
     public  AlbumListAdapter(List<Album> list, Context context){
         super();
         mList = list;
     }
-
+        //
     class  ViewHolder extends  RecyclerView.ViewHolder
     {
         public ImageView image1;
-
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             image1 = (ImageView) itemView.findViewById(R.id.image1);
-            //image2 = (ImageView) itemView.findViewById(R.id.image2);
+            // List variable for album
 
         }
     }
 
     @NonNull
     @Override
+    //
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_layout, parent,false);
         ViewHolder viewHolder = new ViewHolder(v);
@@ -51,30 +52,28 @@ public class AlbumListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
+        //implement to bind data and hold
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
+        // show the album
         Album itemAdapter = mList.get(position);
         String item1 = itemAdapter.getImgPath();
-        //String item2 = itemAdapter.getImage2();
+
 
         Log.i("info" , ">>>>>>>>>>>" + item1);
-        //Log.i("info" , ">>>>>>>>>>>" + item2);
 
         BitmapFactory.Options opt = new BitmapFactory.Options();
         opt.inSampleSize = 10;
 
         Bitmap bitmap1 = BitmapFactory.decodeFile(item1 , opt);
-        //Bitmap bitmap2 = BitmapFactory.decodeFile( item2);
+
 
         ((ViewHolder) holder).image1.setImageBitmap(bitmap1);
-        //((ViewHolder) holder).image2.setImageBitmap(bitmap2);
 
     }
-
+        //count image list
     @Override
     public int getItemCount() {
         return mList.size();
     }
-
 
 }

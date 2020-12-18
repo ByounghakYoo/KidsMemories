@@ -24,20 +24,21 @@ import ca.on.conec.kidsmemories.db.PostDAO;
 import ca.on.conec.kidsmemories.entity.Album;
 import ca.on.conec.kidsmemories.entity.Post;
 
-
+//create an instance of this fragment
 public class AlbumFragment extends Fragment {
+    // from of date
     EditText edtFromdate;
-    EditText edtTodate;
+    EditText edtTodate;     // end of date
     int ssdate;
     int sedate;
     DatePickerDialog datePicker;
-    int kidId;
+    int kidId;              // kid id
     private PostDAO dao;
     ArrayList<Post> postArrayList;
     RecyclerView mrecyclerView;
     AlbumListAdapter albumListAdapter;
 
-
+    // Rename and change types of parameters
     private List<Album> mList = new ArrayList<>();
     private List<String> date = new ArrayList<>();
 
@@ -45,15 +46,15 @@ public class AlbumFragment extends Fragment {
         // Required empty public constructor
     }
 
-
+    // Inflate the layout for this fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
        View v =inflater.inflate(R.layout.fragment_album, container, false);
 
         Button btnRetrieve;
-
+        // Retrieve action of button click
         edtFromdate = (EditText)v.findViewById(R.id.editTextFromdate);
         edtTodate = (EditText)v.findViewById(R.id.editTextTodate);
         btnRetrieve = (Button)v.findViewById(R.id.button);
@@ -65,16 +66,16 @@ public class AlbumFragment extends Fragment {
         postArrayList = new ArrayList<>();
         postArrayList = dao.getPostList(kidId);
 
-
+        //set on the start of date
         edtFromdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // get start of date
                 final Calendar cal = Calendar.getInstance();
                 int day = cal.get(Calendar.DAY_OF_MONTH);
                 int month = cal.get(Calendar.MONTH);
                 int year = cal.get(Calendar.YEAR);
-
+                // show date picker
                 datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -87,16 +88,16 @@ public class AlbumFragment extends Fragment {
 
             }
         });
-
+        // set on the end of date
         edtTodate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // get end of date
                 final Calendar cal = Calendar.getInstance();
                 int day = cal.get(Calendar.DAY_OF_MONTH);
                 int month = cal.get(Calendar.MONTH);
                 int year = cal.get(Calendar.YEAR);
-
+                //show date picker
                 datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -109,7 +110,7 @@ public class AlbumFragment extends Fragment {
 
             }
         });
-
+        // get the album list from database
         btnRetrieve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,63 +118,14 @@ public class AlbumFragment extends Fragment {
                 ArrayList<Album> postImgList = dao.getPostImgList(kidId , edtFromdate.getText().toString() , edtTodate.getText().toString());
 
                 mList = postImgList;  
-                /*
-                if(postImgList != null) {
-                    Log.d("info" , "KKKKKKKKKKK");
-                    for (int i = 0; i < postImgList.size(); i++) {
-                        String link = postImgList.get(i);
-                        Log.i("info", ">>>" + link);
-                    }
-                }
 
-                 */
-
-                /*
-                for(Post object : postArrayList ) {
-                    String swdate = object.getWriteDate().toString();
-                    int wdate = Integer.parseInt(swdate.substring(0,4))+Integer.parseInt(swdate.substring(5,7)) + Integer.parseInt(swdate.substring(8,10));
-                    if (wdate >= ssdate && wdate <= sedate) {
-                        if(object.getPhotoLink() != null && !"".equals(object.getPhotoLink())) {
-                            date.add(object.getPhotoLink());
-                        }
-                    }
-                }
-
-
-                Album album = new Album();
-                int count = 0;
-                for (String link : date) {
-                    Log.d("info" , ">>>>>" + link);
-                    if (count % 2 == 0) {
-                        album = new Album();
-                        album.setImage1(link);
-                        count++;
-                    } else {
-                        album.setImage2(link);
-                        count++;
-                    }
-                    if (date.size() != count && count % 2 == 0) {
-                        mList.add(album);
-                    } else if (date.size() == count) {
-                        mList.add(album);
-                    }
-                }
-                */
 
                 if(postImgList == null) {
                     mrecyclerView.setAdapter(null);
                 } else {
                     bindAdapter();
                 }
-                /*
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-                mrecyclerView.setLayoutManager(layoutManager);
 
-                albumListAdapter = new AlbumListAdapter(mList, getContext());
-
-                mrecyclerView.setAdapter(albumListAdapter);
-                albumListAdapter.notifyDataSetChanged();
-                */
             }
         });
         return v;
@@ -190,7 +142,7 @@ public class AlbumFragment extends Fragment {
         mrecyclerView.setAdapter(albumListAdapter);
         albumListAdapter.notifyDataSetChanged();
     }
-
+   // after activity destroy view
     @Override
     public void onDestroyView() {
         if(mrecyclerView != null) {
