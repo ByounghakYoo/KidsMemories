@@ -11,7 +11,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.Html;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -310,6 +309,13 @@ public class PostDAO extends KidsMemoriesDBHelper{
         return returnValue;
     }
 
+    /**
+     * get Img List in Post
+     * @param kidId     Kid Id
+     * @param startDate Start date to writing for search
+     * @param endDate End date to writing for search
+     * @return
+     */
     public ArrayList<Album> getPostImgList(int kidId, String startDate , String endDate) {
         ArrayList<Album> imgArrayList = null;
         SQLiteDatabase db = kdb.getReadableDatabase();
@@ -317,8 +323,6 @@ public class PostDAO extends KidsMemoriesDBHelper{
 
         try {
 
-            Log.d("info" , ">>" + startDate);
-            Log.d("info" , ">>" + endDate);
             cursor = db.rawQuery(" SELECT "  + POST_COL1 + ", " + POST_COL2 + ", " + POST_COL3 + ", "
                     + POST_COL4 + ", strftime('%Y-%m-%d' , " + POST_COL5 + ") as write_date, "+ POST_COL6 + ", " + POST_COL7 + " FROM "
                     + POST_TABLE_NAME + " WHERE " + POST_COL7 + "= ? AND strftime('%Y-%m-%d' , " + POST_COL5 + ") BETWEEN ? AND ? "  , new String[]{String.valueOf(kidId) , String.valueOf(startDate) , String.valueOf(endDate)});

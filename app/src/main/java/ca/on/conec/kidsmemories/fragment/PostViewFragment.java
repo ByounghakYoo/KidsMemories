@@ -84,9 +84,6 @@ public class PostViewFragment extends Fragment{
         final Point size = new Point();
         display.getSize(size);
 
-        Log.i("info" , size.x + "");
-        Log.i("info" , size.y + "");
-
         if(post != null) {
             txtTitle.setText(post.getTitle());
 
